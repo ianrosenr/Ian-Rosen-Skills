@@ -1,0 +1,5 @@
+{
+  "name": "irskills",
+  "owner": { "name": "ianrosenr" },
+  "plugins": [{ "name": "flag-complete", "source": "./claude-code/flag-complete" }]
+}
