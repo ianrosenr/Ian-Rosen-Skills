@@ -3,6 +3,7 @@
 Resume point. Agent: read CONTEXT.md first, then work through this top-down. Grill user; record answers in CONTEXT.md; strike resolved items here.
 
 ## Status (2026-11-05)
+- SCOPE (user, 2026-11-05): POC-1 = bare `/spec` + `/explain` only. OUT of POC-1 (later): plugin, versioning, version pinning, update warnings, skill testing/evals. DONE: `scripts/link-skills.sh` symlinks each skill -> `~/.claude/skills/<name>` (Pocock-style); old `~/.claude/skills/irskills` plugin link removed (was cause of `irskills:` prefix). Shared rules via per-skill symlink `config-rules.md -> ../_shared/`.
 - POC-1 implemented (skills/, examples/, .gitignore, symlinked into ~/.claude/skills/). Pending manual testing.
 - Repo: ianrosenr/Ian-Rosen-Skills (public). Local ~/Projects/Skills. Commit after each session.
 - ADRs 0001-0009 created, all barren (why + investigate only).
@@ -28,6 +29,9 @@ Resume point. Agent: read CONTEXT.md first, then work through this top-down. Gri
 - Budget scoped to replies only; artifacts rule added (see CONTEXT).
 
 ## Next steps
+- (2026-11-05) ADR 0003 CC done: `claude-code/flag-complete/` + root marketplace.json, spec D2 exception. TODO: verify live (`/plugin install flag-complete --marketplace /Users/ianrosen/Projects/Skills`, type `/explain -r`); decide long flags in hints (skill change -> bump + tests); commit.
+0. Distribution spec (specs/distribution-migration.md): P1-P4 folded + grilled; update check revised to script + daily + warn-once (2026-11-05). NEXT: impl in new session. First verify: CC `!` preprocessing in skills + `${CLAUDE_SKILL_DIR}` + allowed-tools form, `CODEX_SANDBOX_NETWORK_DISABLED`, `npx skills update`/`add --skill` scoping (fixes `<AU>`), same-name clash behavior, Pi alias, `--setting-sources` loads ws skills, Codex rules via `codex execpolicy check`. Before POC-1 test run.
+0b. After impl: GH issue #1 — revisit POC-1 'model resolves config, no script' (script-side config/args/echo?). Grill user.
 1. Finish grilling: questions above.
 2. Skill-set convo -> fill ADR 0004.
 3. Research ADRs w/ user (user wants to learn, not get answers): 0001 budget/effort, 0006 skills+tools, 0005 harnesses, 0002 usage routing, 0003 arg hints, 0007 teach-me memory/adaptive, 0008 styles (back burner), 0009 per-skill model class.

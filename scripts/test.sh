@@ -69,9 +69,11 @@ run_static() {
     v="$(awk '/^metadata:/{m=1;next} m&&/^[ \t]+version:/{gsub(/.*version:[ \t]*|"/,"");print;exit} m&&/^[^ \t]/{exit}' "$s")"
     semver "$v" || fail "$dir: metadata.version missing/not semver"
     grep -q "^## $dir $v" "$REPO/CHANGELOG.md" || fail "$dir: CHANGELOG missing '## $dir $v'"
-    grep -q '\.\./_shared/config-rules\.md' "$s" || fail "$dir: does not reference shared config rules"
+    grep -q '`config-rules\.md` in this skill' "$s" || fail "$dir: does not reference config-rules.md in own dir"
+    grep -q '\.\./' "$s" && fail "$dir: SKILL.md has ../ path (breaks per-folder installers)"
     printf '%s=%s\n' "$dir" "$v" >> "$OUT/versions.txt"
   done
+  "$REPO/scripts/sync-shared.sh" --check >/dev/null || fail "config-rules.md copies stale/symlinked: run scripts/sync-shared.sh"
   for c in "$REPO"/evals/*/*/prompt.md; do
     d="$(dirname "$c")"; ls "$d"/graders/*.md >/dev/null 2>&1 || fail "$(basename "$d"): no graders"
   done

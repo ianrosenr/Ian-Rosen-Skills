@@ -29,7 +29,7 @@ Agent-facing. Terse. Planning phase. Read this + NEXT.md + POC-1.md + TEST-APPAR
 - project-manager role: assume non-technical. Frame by impact/risk/timelines.
 - Code for non-eng roles: no flag. Agent decides; show only if critical. Keep simple.
 - Settings: one universal format, all harnesses. No per-harness/per-model translation.
-- Config resolution: MODEL reads config files (no script) -> OS-agnostic, zero deps. Mitigations: tiny flat files; shared resolution rules in one reference file; model echoes resolved values in 1 line (verifiable).
+- Config resolution: MODEL reads config files (no script) -> OS-agnostic, zero deps. UNDER REVIEW: update check now a script; revisit -> GH issue #1 (deferred, after distribution impl). Mitigations: tiny flat files; shared resolution rules in one reference file; model echoes resolved values in 1 line (verifiable).
 - Skill format: Agent Skills std (SKILL.md, portable frontmatter only). Harness extras (e.g. Claude Code `argument-hint`) optional, never required.
 - Priority: POC soon. Defer nice-to-haves to ADRs.
 - novice tier (was 'learning'): not stronger model. Check-ins/narration at decision points + after file changes -- explain what + why, without halting progress (pausing governed by harness). Model-agnostic.
@@ -51,9 +51,20 @@ See NEXT.md for full outstanding question list + next steps.
 - The 10-15 skill list -> ADR 0004. Needs dedicated convo: SE principles + roles.
 - Skills + built-in tools combo for cost optimization -> ADR 0006.
 
-## Install (Claude Code)
-- Dev + ship identical: repo = Claude Code plugin (`.claude-plugin/plugin.json`). Dev install: symlink `~/.claude/skills/irskills -> repo` (skills-dir plugin, live edits). User types `/explain` (resolves to `irskills:explain` when unambiguous). Never also install skills individually (shadows plugin).
-- Other harnesses: same skill folders; install method per ADR 0005.
+## Install
+- (2026-11-05) Delivery mimics mattpocock/skills non-plugin route: `npx skills add` for ALL harnesses; his user-invoked markers; his `link-skills.sh` for dev. No plugin/marketplace (forces `irskills:` prefix + auto-update). Not copied: his layout, skills, process. Spec: specs/distribution-migration.md (not yet impl).
+- (2026-11-05) Bare names everywhere: `/explain`, `/spec`. Repo layout may change to guarantee it.
+- (2026-11-05) Skills user-invoked only (`disable-model-invocation: true` + Codex `agents/openai.yaml` `allow_implicit_invocation: false`).
+- (2026-11-05) No auto-update by default; opt-in `auto_update=on` (+ `auto_update.<skill>`). REVISED: warn once per new release per skill (incl update cmd), then silent until next release (user may stay on a version). Fetch ≤1/day. Deterministic `update-check.sh` (POSIX sh) + state file `~/.config/irskills/update-state`; Claude Code runs it via `` !`…` `` preprocessing (zero model tool calls), other harnesses model runs it once/call (local, cheap). Disable `update_check=off` / `update_check.<skill>=off` / `--no-update-check`.
+- (2026-11-05) Precedence update_check/auto_update: specificity-first: flag > per-skill key (highest layer) > global key (highest layer) > default.
+- (2026-11-05) auto_update must touch ONLY the irskills skill being updated, never other skills/authors. Verified: `npx skills update <name> -g|-p` scoped (names only; no by-source update). Scope flag mandatory (else foreign same-name skill in other scope updated).
+- (2026-11-05) Stay on `npx skills`. Upstream ask: `update owner/repo`. Fallback: git clone + symlinks (spec Open q 10).
+- (2026-11-05) Fetch blocked -> BLOCK hint line. Offline/errors silent, ≤1 attempt/day.
+- (2026-11-05) Permissions: `allowed-tools` = narrowest rule for script cmd (exact form at impl); README #permissions per-harness allow rules (Codex prefix_rule on script).
+- (2026-11-05) Pi: investigate alias so `/explain` works (native `/skill:explain`).
+- (2026-11-05) Names stay bare despite clash risk; README warns.
+- (2026-11-05) Prereq Node ≥ 22.20; manual copy fallback.
+- Exact strings/tests: specs/distribution-migration.md.
 
 ## Testing + versioning
 - Dev-only eval harness: TESTING.md. One cmd `scripts/test.sh`; agent instruction "run the skill tests".

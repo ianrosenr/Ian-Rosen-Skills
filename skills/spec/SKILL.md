@@ -1,14 +1,14 @@
 ---
 name: spec
 description: Write a spec for a feature or change to a markdown file, optimized for an agent (default) or a human reader. Use when the user asks for a spec, design doc, or implementation brief before building.
-argument-hint: "[-a agent|human] [-b budget] <feature>"
+argument-hint: "[-a agent|human] [-b bare|lean|normal|verbose] <feature>"
 metadata:
-  version: "0.1.0"
+  version: "0.1.1"
 ---
 
 # spec
 
-1. Read `../_shared/config-rules.md` (relative to this skill's directory). Follow it exactly.
+1. Read `config-rules.md` in this skill's directory. Follow it exactly.
 2. Read the config files it lists, parse args, resolve role/level/budget/audience.
 3. First line of reply = echo line per rules.
 4. Gather context with targeted reads (relevant files, interfaces). Don't implement.

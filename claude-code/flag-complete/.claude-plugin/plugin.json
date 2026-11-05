@@ -1,0 +1,1 @@
+{ "name": "flag-complete", "version": "0.1.0", "description": "Typeahead dropdowns for slash-command flag values, read from each command's argument-hint." }
