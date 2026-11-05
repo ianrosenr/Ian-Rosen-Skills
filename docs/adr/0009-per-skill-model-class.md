@@ -3,7 +3,7 @@
 Status: research pending. Not in POC.
 
 ## Why
-Diff skills need diff model capability. Impl (from good spec) -> low model; planning/spec -> high; explain -> low-mid depending on length + topic difficulty. Saves cost. Must be guidance in instructions, not hard-coded names. Overridable global / project / per prompt.
+Diff skills need diff model capability. Impl (from good spec) -> low model; planning/spec/context-file writing -> high (must optimize every word for ~100% impl accuracy); explain -> low-mid depending on length + topic difficulty. Saves cost. Must be guidance in instructions, not hard-coded names. Overridable global / project / per prompt.
 
 ## Investigate
 - Abstract classes (low/mid/high) -> concrete model mapping per harness/provider; where mapping lives

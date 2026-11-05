@@ -1,0 +1,8 @@
+# Level/budget/role must not change the artifact (agent audience).
+compare=file:specs/out.md
+fixture=login
+a=/spec -r engineer -l novice -b bare -a agent add rate limiting to the login endpoint to specs/out.md
+b=/spec -r qa -l expert -b verbose -a agent add rate limiting to the login endpoint to specs/out.md
+words_ratio_max=1.25
+same_headers=1
+rubric=pair-equivalence

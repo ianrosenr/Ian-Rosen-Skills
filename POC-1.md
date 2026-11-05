@@ -66,7 +66,7 @@ First line of every response: `[role·level·budget·audience]`, e.g. `[engineer
   - lean: short bullets, no preamble/recap
   - normal: concise prose + bullets
   - verbose: full explanation, examples
-- Audience (artifacts): agent = full relevant detail, zero fluff, machine-optimized; human = slightly more prose for readability, not much. Level/budget do NOT apply to agent-audience artifacts.
+- Audience (artifacts): agent = full relevant detail, zero fluff, machine-optimized; human = slightly more prose for readability, not much. Role/level/budget never apply to artifacts (either audience). Artifacts: max word economy, examples/edge cases ok if terse.
 
 ## Skill: explain
 - Input: topic / code ref / question.
@@ -91,7 +91,7 @@ First line of every response: `[role·level·budget·audience]`, e.g. `[engineer
 6. `explain novice bare <topic>` vs `explain expert verbose <topic>` -> visibly diff depth + length.
 7. `explain -r pm <topic>` -> impact/risk framing, no code unless critical.
 8. `spec <feature>` -> terse agent spec; `spec -a human <feature>` -> same sections + brief rationale.
-9. spec artifact identical in density regardless of `-b`/`-l` when audience=agent.
+9. spec artifact identical in density regardless of `-b`/`-l`/`-r`, either audience. Examples/edge cases only when they raise accuracy, terse.
 10. SKILL.md frontmatter uses only std fields + `argument-hint`.
 
 ## Deliverables after POC

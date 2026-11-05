@@ -20,3 +20,7 @@ Skills should work across the major agent harnesses, not only Claude Code. Initi
 - Portable frontmatter: name, description, license, compatibility, metadata, allowed-tools (experimental). `argument-hint`, `model` = Claude Code extensions; may fail strict validation elsewhere.
 - Harnesses: model reads SKILL.md via its own tools -> config read by model is portable.
 - Still verify: arg passthrough per harness; OpenCode native support; frontmatter extension tolerance.
+
+## POC-1 notes
+- Skills ref `../_shared/config-rules.md` by relative path. Skill installed alone (without `_shared`) loses rules -> investigate bundling/inlining per harness.
+- `_shared` dir lives beside skills in skills root; verify each harness ignores dirs w/o SKILL.md.

@@ -1,0 +1,6 @@
+# Same topic, opposite dials -> replies must differ visibly. Runs via claude -p (plugin eval can't compare runs).
+compare=reply
+a=/explain -r engineer -l novice -b bare -a agent how does TLS establish a session
+b=/explain -r engineer -l expert -b verbose -a agent how does TLS establish a session
+words_ratio_min=2.0
+rubric=pair-spread

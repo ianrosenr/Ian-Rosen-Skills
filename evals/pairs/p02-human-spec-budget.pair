@@ -1,0 +1,8 @@
+# Budget must not change the artifact (human audience).
+compare=file:specs/out.md
+fixture=login
+a=/spec -r engineer -l competent -b bare -a human add rate limiting to the login endpoint to specs/out.md
+b=/spec -r engineer -l competent -b verbose -a human add rate limiting to the login endpoint to specs/out.md
+words_ratio_max=1.25
+same_headers=1
+rubric=pair-equivalence

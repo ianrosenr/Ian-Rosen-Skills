@@ -1,0 +1,5 @@
+# Sample project personal config. Install at: <repo>/.irskills/config.local (gitignored)
+# Your settings for this project. Overrides shared + global; overridden by args.
+role=engineer
+level=novice
+# budget/audience unset -> fall through to project shared, then global.

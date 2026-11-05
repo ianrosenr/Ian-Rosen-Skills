@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: e07-pm-framing
+context:
+  scaffold_script: fixture.sh

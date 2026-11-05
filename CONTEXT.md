@@ -1,6 +1,6 @@
 # CONTEXT
 
-Agent-facing. Terse. Planning phase. Read this + NEXT.md + POC-1.md + docs/adr/*. Resume from NEXT.md.
+Agent-facing. Terse. Planning phase. Read this + NEXT.md + POC-1.md + TEST-APPARATUS.md + SHIPPING.md + docs/adr/*. Resume from NEXT.md.
 
 ## Goal
 - Hone reusable AI dev workflow. ~10-15 lean skills covering normal SDLC. Counter to verbose popular skill packs.
@@ -18,8 +18,11 @@ Agent-facing. Terse. Planning phase. Read this + NEXT.md + POC-1.md + docs/adr/*
 - Role + level settable globally or per project. Per-project role/level = personal (project local, gitignored), so teammates differ. Shared project file must not dictate per-person role/level.
 - Budget = 4 named tiers: bare / lean / normal / verbose.
   - bare: zero fluff, every char scrutinized, bullets/any densest format.
+  - Universal across skills, but ONLY conversational replies (answers). Not written artifacts. Resolved default applies regardless of skill; override per call. Skills never set own budget default.
   - Controls output verbosity mainly; work effort should not drop (ADR 0001). No hard caps.
-- Dials (level/budget) apply to conversational output to the human. NOT to agent-facing artifacts.
+- Dials (role/level/budget) apply to conversational replies only. NOT to any written artifact (spec, context file, docs), agent or human audience.
+- Artifacts: max word economy, grammar sacrificable, zero fluff. Goal ~100% impl accuracy. Examples/edge cases ok when they raise accuracy, written tersely. Economize words, not information. Human audience = slightly more connective prose, still economical.
+- Spec/context-file writing -> high model class by default (ADR 0009); needs intelligence to optimize every word.
 - Agent-facing artifacts (e.g. spec w/ audience=agent) always machine-optimized: full relevant detail, zero fluff.
 - Audience flag: agent (default) | human. Overridable in settings/per call. Human = slightly more prose for readability, not much.
 - Per-skill model class guidance (ADR 0009): in skill instructions, abstract classes not hard-coded names. Ex: implement=low, plan/spec=high, explain=low-mid by length/difficulty. Overridable global/project/per prompt. Not in POC.
@@ -47,6 +50,16 @@ See NEXT.md for full outstanding question list + next steps.
 - Style prefs: back burner -> ADR 0008.
 - The 10-15 skill list -> ADR 0004. Needs dedicated convo: SE principles + roles.
 - Skills + built-in tools combo for cost optimization -> ADR 0006.
+
+## Install (Claude Code)
+- Dev + ship identical: repo = Claude Code plugin (`.claude-plugin/plugin.json`). Dev install: symlink `~/.claude/skills/irskills -> repo` (skills-dir plugin, live edits). User types `/explain` (resolves to `irskills:explain` when unambiguous). Never also install skills individually (shadows plugin).
+- Other harnesses: same skill folders; install method per ADR 0005.
+
+## Testing + versioning
+- Dev-only eval harness: TESTING.md. One cmd `scripts/test.sh`; agent instruction "run the skill tests".
+- Specialized judge rubrics per quality dimension; pass/fail checklists + evidence; judges never see skill instructions; judges may propose skill edits.
+- No real-time feedback needed; summary per run.
+- Semver per skill (`metadata.version`) + plugin version; CHANGELOG enforced; baselines per plugin version; regression = drop > 0.1.
 
 ## Process
 - ADRs = barren: only what to investigate + why. Research after grilling done.
