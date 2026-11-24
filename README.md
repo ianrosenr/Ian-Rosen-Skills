@@ -22,9 +22,9 @@ Two files drive everything in the app repo:
 | You type | What happens |
 |---|---|
 | `/new-repo <name>` | Creates the repo (separate tool). |
-| `/irs:grill` | Light conversation about the idea. Writes plan.md: chunk 1 (the first walking skeleton) with every line item, later chunks with what still needs figuring out. |
+| `/irs:grill [chunk N \| <feature>]` | You brain-dump the idea (or chunk, or new feature) first; then a light conversation about only the gaps. Writes plan.md: chunk 1 (the first walking skeleton) with every line item, later chunks with what still needs figuring out. |
 | `/irs:research [question]` | No question, after the first grill: does this exist already, what can we use instead of building, pursue verdict. With a question: the tried-and-tested ways to do it at this app's size and growth, with a recommendation and sources. |
-| `/irs:architecture` | Decides only what chunk 1 needs; edge cases get noted, not asked. Writes an ADR (Architecture Decision Record) per decision in `docs/adr/`. Refines the line items, ending the chunk with an architecture page item. |
+| `/irs:architecture` | You brain-dump what you already want for the build first; then decides only what chunk 1 needs; edge cases get noted, not asked. Writes an ADR (Architecture Decision Record) per decision in `docs/adr/`. Refines the line items, ending the chunk with an architecture page item. |
 | `/irs:ready` | Checks the chunk for obvious gaps. On your yes, marks it ready and opens a plan PR (plan.md + ADRs). You merge it. |
 | `/irs:implementme` | Writes IMPLEMENTME.md for the next line item. You review it and ask for edits. |
 | `/irs:shipit` | Your approval. Creates the issue, then implement, review, at most one fix and a second review, then stops and reports. Clean -> PR (checks off the line item, deletes IMPLEMENTME.md). |
@@ -39,7 +39,8 @@ Before any code, two conversations build `plan.md`. Nothing is committed until y
 ```
 /new-repo my-app                 empty repo: rules, checks, protection, plugin
   │
-/irs:grill                       light, non-technical conversation, one question at a time
+/irs:grill                       you brain-dump everything first (no questions until you're done)
+  │   then a light, non-technical conversation about only what the dump left out, one question at a time
   │   vision, users, hosting, features, what the first release must show, non-goals,
   │   growth: now, next year, maximum potential, and how fast it could get there
   │   edge cases are noted (E-n), not asked
@@ -49,7 +50,8 @@ Before any code, two conversations build `plan.md`. Nothing is committed until y
 /irs:research                    idea check: competitors, services to use instead of building, pursue verdict
   └─► plan.md ## Research; proposed plan changes applied only if you agree
   │
-/irs:architecture                technical conversation, only what chunk 1 needs to start
+/irs:architecture                you brain-dump the tech you want / don't want first; then a
+  │   technical conversation, only what chunk 1 needs to start
   │   layout, data, interfaces, dependencies, security, tests; simplest option first
   │   security and data-loss questions always asked; everything else noted, not asked
   │   opens with "research before we start?" (suggested topic from the chunk; yes / no / something else);
@@ -108,6 +110,7 @@ One line item, one run, one PR. You stay in control at three points: approving I
 | Report says "not clean after review 2", or a PR comment shows the reviewer should have caught something | `/irs:retro` |
 | After a `/irs:retro` PR merged | `/irs:shipit` (re-runs the same item) or `/irs:implementme T-n` first if IMPLEMENTME.md was the gap |
 | Chunk finished, next chunk says `needs: grill` | `/irs:grill chunk N` |
+| New feature idea | `/irs:grill <feature>` (becomes a new chunk) |
 | Not sure where you are | Run `/irs:implementme`: it checks for open PRs, ready chunks and what the next chunk needs, then tells you |
 
 Walking skeleton = production-quality code with bare-bones scope: the smallest end-to-end version that shows how the app looks and feels. Cut scope, never quality.

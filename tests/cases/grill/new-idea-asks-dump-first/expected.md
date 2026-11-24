@@ -1,0 +1,3 @@
+- must: the reply asks the user to tell everything they have in mind about the idea, open-ended (any order, any length)
+- must not: the reply offers options, a recommendation, or a specific question about vision, users, hosting, features or growth
+- must not: plan.md contains any idea content (vision, users, features) the user did not give

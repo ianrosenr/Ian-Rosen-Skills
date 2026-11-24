@@ -2,7 +2,7 @@
 name: architecture
 description: 'Decide only what the next chunk of plan.md (or one large line item) needs to be built, note everything else without asking, refine the line items, write an ADR for every decision, and end the chunk with an architecture page + diagram + video line item. Use after /irs:grill and /irs:research, before /irs:ready. args: "[chunk N | T-n]"'
 metadata:
-  version: "1.2.0"
+  version: "1.3.0"
 ---
 
 # architecture
@@ -16,7 +16,12 @@ Build the simplest thing that fits now and can reach `## Growth`'s maximum poten
 - Python 3.12+, uv, pytest, unless the user picks otherwise.
 - Use the `## Research` services the user agreed to, and its earlier findings.
 
-## Research? (first question of every session)
+## Brain dump (first message of every session)
+- Show the scope's goal, line items and `to figure out` list, then ask only: "Tell me everything you already have in mind for how to build this: tech you want or don't want, constraints, things you've used before, worries. Any order, any length, or 'nothing'." No options, no other question. Stop and wait.
+- Write each stated preference to plan.md under the scope as `- user wants: <their words>`. A firm choice ("use Postgres") is still a decision: confirm it in one line, then record D-n + ADR; don't re-ask it as options.
+- Everything after shapes around it: the research suggestion targets what the dump left open, options include what they named, questions skip what it answered.
+
+## Research? (right after the brain dump)
 Ask: "Research before we start? Suggested: <the tried-and-tested ways to build this scope's goal, covering its `to figure out` list>. Yes / no / research something else: ___".
 - Yes or a custom topic -> spawn one subagent (Agent tool): "Read `../research/SKILL.md` from this skill's directory (absolute path) and follow it. Question: <the user's topic or the suggestion>. Called by /irs:architecture: return the findings block only." Paste the findings into plan.md `## Research`; build the options from them, citing the source; link them from the ADRs.
 - No -> go straight to the questions.

@@ -2,6 +2,11 @@
 
 Each skill file has its own semver (`metadata.version` in SKILL.md; `version` in shipit/implementer.md and shipit/reviewer.md). Minor = new rule or behavior. Patch = wording. Every bump: a line here, and `python3 tests/run.py <skill>` passes.
 
+## 2026-11-24: plugin irs 1.1.0, brain dump first
+- grill 1.2.0: every session (new idea, chunk N, new feature) opens with one open ask for the user's brain dump and waits; written to plan.md in their words; questions then cover only gaps, vague parts or contradictions, built on what they said. New `<feature>` arg (or no arg with nothing needing grill) adds a new chunk.
+- architecture 1.3.0: first message asks what the user already has in mind for the build (tech wanted/avoided, constraints, worries); research suggestion and options shaped by it; firm choices confirmed and recorded as D-n + ADR, not re-asked.
+- New cases: `grill/new-idea-asks-dump-first`, `grill/questions-only-gaps`, `architecture/asks-dump-first`.
+
 ## 2026-11-24: plugin irs 1.0.2, research answers any question
 - research 1.1.0: researches what it's given. Idea check (does this exist, what to use instead of building, verdict) or "how is this usually done": 2-4 tried-and-tested approaches judged against plan.md's size and Growth, with a recommendation, growth path and sources. Returns a findings block when called by another skill; appends to plan.md `## Research` when run directly.
 - architecture 1.2.0: first question of every session: research before we start? (suggested topic from the chunk; yes / no / something else). Findings feed the options and ADRs. More only on "research it".
