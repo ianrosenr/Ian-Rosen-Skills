@@ -33,6 +33,36 @@ Two files drive everything in the app repo:
 
 After a merge, `/irs:implementme` starts the next item. When a chunk is done, run its `needs` (`/irs:grill chunk N`, `/irs:research`, `/irs:architecture chunk N`), then `/irs:ready chunk N`. Each command ends by naming the next one, and every step works from a fresh session because state lives in files and GitHub.
 
+## Planning: from idea to a ready chunk
+Before any code, two conversations build `plan.md`. Nothing is committed until you approve a chunk.
+
+```
+/new-repo my-app                 empty repo: rules, checks, protection, plugin
+  │
+/irs:grill                       light, non-technical conversation, one question at a time
+  │   vision, users, hosting, features, what the first release must show, growth, non-goals
+  │   edge cases are noted (E-n), not asked
+  └─► plan.md: chunk 1 = first walking skeleton, every line item listed (one PR each)
+               later chunks = goal + "needs" + "to figure out"
+  │
+/irs:research                    competitors, services to use instead of building, pursue verdict
+  └─► plan.md ## Research; proposed plan changes applied only if you agree
+  │
+/irs:architecture                technical conversation, only what chunk 1 needs to start
+  │   layout, data, interfaces, dependencies, security, tests; simplest option first
+  │   security and data-loss questions always asked; everything else noted, not asked
+  └─► plan.md ## Decisions (D-n), docs/adr/NNNN-*.md per decision, AGENTS.md ## Layout,
+      line items split to one change each, last item = architecture page + diagram + video
+  │
+/irs:ready                       checks the chunk for obvious gaps (open questions, security,
+  │                              data loss, items that are more than one change, missing ADRs)
+  │   gaps → answer them (in chat or another /irs:architecture), re-run /irs:ready
+  └─► your yes → status: ready, plan PR (plan.md + ADRs) → you merge = chunk approved
+```
+- **Grill is the "what", architecture is the "how".** If you start talking technology in grill, it's parked for architecture; if an architecture answer would change what the app does, it sends you back to grill.
+- **You approve in chunks.** Only the next chunk gets detailed planning; later chunks stay as goals and questions until their turn: `/irs:grill chunk N` and/or `/irs:architecture chunk N` (whatever its `needs` says), then `/irs:ready chunk N`.
+- **Sessions are resumable.** Everything is written to plan.md as you go, so `/clear` between steps is fine.
+
 ## Inside `/irs:shipit`
 One line item, one run, one PR. You stay in control at three points: approving IMPLEMENTME.md (typing `/irs:shipit` is the approval), reading the report, and merging the PR.
 
@@ -62,6 +92,7 @@ One line item, one run, one PR. You stay in control at three points: approving I
 | Situation | Use |
 |---|---|
 | New app idea, no repo yet | `/new-repo <name>`, then `/irs:grill` in it |
+| Repo exists but has no plan.md | `/irs:grill` |
 | Idea talked through, not sure it's worth building | `/irs:research` |
 | A chunk's line items need technical decisions | `/irs:architecture chunk N` |
 | One line item is big (new component, data or outside service) | `/irs:architecture T-n` |
