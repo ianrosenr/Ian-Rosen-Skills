@@ -1,6 +1,6 @@
 ---
 name: architecture
-description: Decide only what the next chunk of plan.md needs to be built (layout, data, interfaces, dependencies, security, tests), note everything else without asking, and refine the chunk's line items. Use after /grill and /research, before /ready. args: "[chunk N]"
+description: 'Decide only what the next chunk of plan.md needs to be built (layout, data, interfaces, dependencies, security, tests), note everything else without asking, and refine the chunk''s line items. Use after /grill and /research, before /ready. args: "[chunk N]"'
 metadata:
   version: "1.0.0"
 ---

@@ -1,6 +1,6 @@
 ---
 name: implementme
-description: Write IMPLEMENTME.md for the next unchecked line item of a ready chunk in plan.md: the smallest complete change, every file it must reach (callers included), code to reuse, tests. Reads only the parts of the repo the item needs. The user reviews it; /shipit approves it. args: "[T-n]"
+description: 'Write IMPLEMENTME.md for the next unchecked line item of a ready chunk in plan.md: the smallest complete change, every file it must reach (callers included), code to reuse, tests. Reads only the parts of the repo the item needs. The user reviews it; /shipit approves it. args: "[T-n]"'
 metadata:
   version: "1.1.0"
 ---

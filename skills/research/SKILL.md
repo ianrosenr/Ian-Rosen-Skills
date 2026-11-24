@@ -1,6 +1,6 @@
 ---
 name: research
-description: After /grill, research whether the idea already exists (competitors) and which existing services, APIs or libraries could replace building parts of it, then give a pursue verdict. Writes the Research section of plan.md. args: "[chunk N | topic]"
+description: 'After /grill, research whether the idea already exists (competitors) and which existing services, APIs or libraries could replace building parts of it, then give a pursue verdict. Writes the Research section of plan.md. args: "[chunk N | topic]"'
 metadata:
   version: "1.0.0"
 ---

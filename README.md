@@ -52,6 +52,8 @@ python3 tests/run.py            # all cases
 python3 tests/run.py shipit     # one skill folder
 python3 tests/run.py --case reviewer-missing-name-check --runs 3
 ```
+Free check that every skill's frontmatter parses: `uv run --with pyyaml tests/check_frontmatter.py`.
+
 Each run builds a fresh temp workspace from the case's fixture, runs the skill in a fresh `claude -p` session (never resumed, never saved), and a judge model grades the output against `expected.md`. No cached inputs, no baselines. Costs tokens. Results go to `tests/results/<time>/` (gitignored).
 
 A case is a folder `tests/cases/<skill folder>/<case>/`:
