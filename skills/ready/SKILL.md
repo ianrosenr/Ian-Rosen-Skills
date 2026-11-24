@@ -1,6 +1,6 @@
 ---
 name: ready
-description: Check one chunk of plan.md for obvious gaps (open questions, security, data loss, line items that are not one change), then on the user's yes mark it ready and open a plan PR. args: "[chunk N]"
+description: 'Check one chunk of plan.md for obvious gaps (open questions, security, data loss, line items that are not one change), then on the user''s yes mark it ready and open a plan PR. args: "[chunk N]"'
 metadata:
   version: "1.0.0"
 ---

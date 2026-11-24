@@ -1,6 +1,6 @@
 ---
 name: retro
-description: After a /shipit run that is not clean after review 2 (or a PR comment that shows a skill gap), talk through what went wrong, then fix the skills in the Ian-Rosen-Skills repo, add test cases with the user's expected outputs, bump versions, run the tests until they pass, and open a PR there. args: "[T-n]"
+description: 'After a /shipit run that is not clean after review 2 (or a PR comment that shows a skill gap), talk through what went wrong, then fix the skills in the Ian-Rosen-Skills repo, add test cases with the user''s expected outputs, bump versions, run the tests until they pass, and open a PR there. args: "[T-n]"'
 metadata:
   version: "1.0.0"
 ---

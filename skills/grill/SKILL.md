@@ -1,6 +1,6 @@
 ---
 name: grill
-description: Light conversation about an app idea (vision, users, hosting, features, growth), then write plan.md as chunks of small line items, each one PR. Use first in a new repo, or for a later chunk marked `needs: grill`. args: "[chunk N]"
+description: 'Light conversation about an app idea (vision, users, hosting, features, growth), then write plan.md as chunks of small line items, each one PR. Use first in a new repo, or for a later chunk marked `needs: grill`. args: "[chunk N]"'
 metadata:
   version: "1.0.0"
 ---
