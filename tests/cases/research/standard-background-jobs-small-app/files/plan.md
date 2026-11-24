@@ -10,7 +10,10 @@ A personal recipe manager: save recipes from links, plan meals, get a reminder t
 One small VM in my homelab (k3s). Private, reached over Tailscale.
 
 ## Growth
-Maybe 5-10 friends within a year. No plans beyond that.
+- now: 2 users
+- next year: 5-10 friends
+- maximum potential: ~50 users (friends of friends); no public launch planned
+- how fast: a year or more
 
 ## Decisions
 - test_cmd: `uv run pytest -q`

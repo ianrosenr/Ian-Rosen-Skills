@@ -11,7 +11,7 @@ Research exactly what you're given; nothing more. Every finding comes with a sou
 
 ## Input
 - The question, from the args or the calling skill. No args + plan.md has no `## Research` yet -> **idea check** for the whole app. `chunk N` -> idea check for that chunk's features.
-- Context from repo-root `plan.md`: Users, Hosting, Growth (now, next year, maximum potential, how fast), Decisions (what's already chosen), Non-goals. That's the yardstick at both ends: what fits now, and what can reach the maximum potential in time. No plan.md, or Growth lacks a maximum or a speed -> ask for them in one question first.
+- Context from repo-root `plan.md`: Users, Hosting, Growth (now, next year, maximum potential, how fast), Decisions (what's already chosen), Non-goals. That's the yardstick at both ends: what fits now, and what can reach the maximum potential in time. No plan.md, or Growth lacks a maximum or a speed -> run directly: ask for them in one question first; called by another skill: state the size you assumed in `context` and carry on.
 
 ## Kinds of question
 **Idea check** ("does this exist?")
@@ -42,7 +42,7 @@ Anything else (a library comparison, a limit, a protocol detail): answer the que
 A findings block, at most ~15 lines + sources:
 ```
 ### <question> (YYYY-MM-DD)
-- context: now <...>; maximum potential <...> within <how fast>
+- context: now <...>; next year <...>; maximum potential <...> within <how fast>
 - options: <name>: <one line> | fits now: yes/no | to max: <what changes>, <switch time> | in time: yes/no | <link>
 - recommendation: <option>. Why now: <...>. Why it's safe if growth hits <maximum potential> within <how fast>: <...>. Growth path: <step> at <trigger>
 - sources: <links>
