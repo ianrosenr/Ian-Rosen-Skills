@@ -2,7 +2,7 @@
 name: shipit
 description: "`/irs:shipit` approves and builds IMPLEMENTME.md: issue, implementer, reviewer, at most 2 review rounds, PR, report. `/irs:shipit <PR#>` addresses the user's review comments on that PR with the same loop. Never merges. args: \"[PR#]\""
 metadata:
-  version: "1.0.1"
+  version: "1.0.2"
 ---
 
 # shipit
@@ -22,7 +22,7 @@ Run dir: `R = $(git rev-parse --git-dir)/shipit/T-<n>` (inside .git, never commi
 6. Stop after round 2 whatever it says. Never a third round.
 7. Clean (round 1 or 2 clean):
    - `git rm IMPLEMENTME.md`; check `- [x] T-<n>` in plan.md; it was the chunk's last unchecked item -> also set that chunk's `status: done`. Commit `T-<n>: done`.
-   - Push; `gh pr create --title "T-<n>: <title>"`, body: `Closes #I`, what changed, tests, the review summary (below).
+   - Push; `gh pr create --title "T-<n>: <title>"`, body: `Closes #I` (merging closes the issue; GitHub deletes the branch when the repo has auto-delete on), what changed, tests, the review summary (below).
 8. Not clean (round 2 findings or an andon): no PR, no push. Branch and IMPLEMENTME.md stay.
 
 ## Comment mode (`/irs:shipit <PR#>`)

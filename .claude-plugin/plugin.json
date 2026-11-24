@@ -1,6 +1,8 @@
 {
   "name": "irs",
   "description": "Plan-driven build flow: grill, research, architecture, ready, implementme, shipit, retro.",
-  "version": "1.0.0",
-  "author": { "name": "ianrosenr" }
+  "version": "1.0.1",
+  "author": {
+    "name": "ianrosenr"
+  }
 }

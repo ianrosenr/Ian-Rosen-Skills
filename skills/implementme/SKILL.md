@@ -2,7 +2,7 @@
 name: implementme
 description: 'Write IMPLEMENTME.md for the next unchecked line item of a ready chunk in plan.md: the smallest complete change, every file it must reach (callers included), code to reuse, tests. Reads only the parts of the repo the item needs. The user reviews it; /irs:shipit approves it. args: "[T-n]"'
 metadata:
-  version: "1.2.0"
+  version: "1.2.1"
 ---
 
 # implementme
@@ -10,7 +10,7 @@ metadata:
 Plan like a lazy senior dev: the best code is code never written. Find the smallest change that fully does the line item, and write it so a busy human understands it in one read.
 
 ## Preconditions (in order; stop with a message on the first one that fails)
-1. Clean working tree. `git checkout main && git pull --ff-only`.
+1. Clean working tree. `git checkout main && git pull --ff-only && git fetch --prune`. Then delete local branches whose remote branch is gone (merged PR; GitHub deleted it): `git for-each-ref --format='%(refname:short) %(upstream:track)' refs/heads | awk '$2=="[gone]"{print $1}' | xargs -n1 git branch -D`. Never delete a branch that has no upstream (unpushed work).
 2. No open PR from a `t-*` branch (`gh pr list --state open --json number,headRefName`). Open -> "Review and merge PR #n first."
 3. Item = `T-n` if given, else the first unchecked item of the first `status: ready` chunk. None left -> say which chunk is next and what it needs (`/irs:grill chunk N`, `/irs:research`, `/irs:architecture chunk N`, `/irs:ready chunk N`).
 4. Item is `T-n` and branch `t-<n>-*` exists with an IMPLEMENTME.md (a re-run after /irs:retro) -> rewrite that file in place, keep its `issue:` line.
