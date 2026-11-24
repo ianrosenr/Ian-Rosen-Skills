@@ -1,0 +1,6 @@
+- must: the context states both the current size and the maximum potential (1M fans, 100k claims in a minute) and how fast it could get there (weeks)
+- must: each option shows what it takes to reach the maximum and roughly how long that switch takes
+- must: the recommendation can handle the maximum potential without a data migration to a different database under time pressure (e.g. managed Postgres from day one rather than SQLite), and says why speed of growth is the reason
+- must: the recommendation still fits the launch size and budget (no large distributed cluster at launch)
+- must: every option has a source link
+- must not: plan.md changed

@@ -16,6 +16,7 @@ A conversation, not an interrogation. Keep it light and non-technical; how it is
 ## Loop
 - One question at a time: 1-2 lines of context, 2-4 options, your recommendation. Give honest feedback: say when an idea is risky, big, or common.
 - New idea covers: vision, users, hosting (where it runs, who can reach it), the features they want, what the first release must show, growth, non-goals.
+- Growth is four answers, all recorded: now, next year, maximum potential (the most it could become if it takes off), and how fast it could get there. Push for a real number on the last two; "it could go viral" is an answer (then: how big, how soon?).
 - No technical design (libraries, data models, folders). User raises one -> add it to Open questions for /irs:architecture and move on.
 - Research only when the user says "research it": spawn a subagent with `../research/SKILL.md` from this skill's directory (absolute path) and the question, called by /irs:grill; use the findings block it returns.
 - Edge cases: don't ask. Add each to Open questions as `E-n`.

@@ -10,7 +10,7 @@ metadata:
 Input: repo-root `plan.md`. Scope = `chunk N`, or `T-n` (one line item marked `needs: architecture`), else the first chunk whose `needs` includes architecture.
 
 ## Core principle
-Build the simplest thing that lets the app grow into `## Growth`. Every question's options include the simplest one; recommend it unless it blocks Growth, and then say what it blocks.
+Build the simplest thing that fits now and can reach `## Growth`'s maximum potential faster than the app could grow there. Every question's options include the simplest one; recommend it unless its path to the maximum is too slow (a data migration or rewrite when growth could come in weeks), and then say so and recommend the next option up. Record each decision's growth path and its trigger in the ADR.
 
 ## Defaults
 - Python 3.12+, uv, pytest, unless the user picks otherwise.

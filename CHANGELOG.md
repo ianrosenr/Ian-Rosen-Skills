@@ -7,6 +7,8 @@ Each skill file has its own semver (`metadata.version` in SKILL.md; `version` in
 - architecture 1.2.0: first question of every session: research before we start? (suggested topic from the chunk; yes / no / something else). Findings feed the options and ADRs. More only on "research it".
 - grill 1.1.0: research only when the user says "research it".
 - research: fit to the app's size beats popularity (most write-ups describe large teams). Every option sourced (dismissed ones too); looks in framework docs and security guides before saying "no source"; several questions = one block with nested sub-questions and a fit-together line.
+- Growth has four parts: now, next year, maximum potential, how fast (grill asks all four; plan template). research and architecture pick the simplest option that fits now AND can reach the maximum faster than the app could grow there; each option shows its path to the maximum and switch time.
+- New case: `research/fast-growth-database` (2/2 runs pass). Its first runs found: missing switch times on some options (now a pre-return self-check) and a correct recommendation whose reasons didn't name growth speed (now the recommendation states why it's safe if growth hits the maximum within the stated time).
 - New case: `research/whole-chunk-small-app` (found 2 gaps on the first runs: an unsourced option, a single-option answer; fixed in the skill).
 - New case: `research/standard-background-jobs-small-app`.
 
