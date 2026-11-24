@@ -47,12 +47,15 @@
   dl.glossary dd { margin: 2px 0 0 0; }
   dl.glossary .eg { color: var(--muted); }
   code { background: var(--accent-soft); padding: 1px 5px; border-radius: 4px; font-size: .9em; }
+  dl.hop { display: grid; grid-template-columns: max-content 1fr; gap: 2px 12px; margin: 8px 0; font-size: .92em; }
+  dl.hop dt { color: var(--muted); font-weight: 600; }
+  dl.hop dd { margin: 0; }
 </style>
 </head>
 <body>
 <main>
   <h1>How Notes works</h1>
-  <p class="sub">Updated after chunk 1 (EXAMPLE). Written for someone who has never written code.</p>
+  <p class="sub">Updated after chunk 1 (EXAMPLE). Written for a junior software engineer.</p>
   <nav>
     <a href="#what">What it does</a><a href="#picture">Big picture</a><a href="#video">Video</a>
     <a href="#steps">Step by step</a><a href="#parts">The parts</a><a href="#glossary">Glossary</a>
@@ -77,7 +80,15 @@
       <p class="analogy">You walk up to the librarian's desk and ask for the book called "todo".</p></li>
     <li><strong>The program checks the name is safe (arrow 1).</strong> It only allows letters, numbers, <code>-</code> and <code>_</code>, so nobody can trick it into opening a file outside the notes folder.
       <p class="analogy">The librarian makes sure you're asking for a book, not for the keys to the back office.</p></li>
-    <li><strong>The program reads the file <code>notes/todo.md</code> (arrow 2).</strong> A file is a named piece of saved text on the disk (the computer's long-term memory).
+    <li><strong>The program reads the file <code>notes/todo.md</code> (arrow 2).</strong>
+      <dl class="hop">
+        <dt>Transport</dt><dd>Local filesystem read (<code>Path.read_text</code>); no network.</dd>
+        <dt>Auth</dt><dd>None beyond your OS (Operating System) user's file permissions.</dd>
+        <dt>Payload</dt><dd>The file's UTF-8 text, or "not found" if it doesn't exist.</dd>
+        <dt>Sync/async</dt><dd>Synchronous: the command waits for the read.</dd>
+        <dt>Failure</dt><dd>Missing file: prints <code>not found</code>, exit code 1. Nothing retried.</dd>
+        <dt>Why</dt><dd>Plain files need no server or schema (<a href="../adr/0002-files-not-database.md">ADR 0002</a>).</dd>
+      </dl>
       <p class="analogy">The librarian takes the book off the shelf.</p></li>
     <li><strong>The program prints the text in your terminal (arrow 3).</strong>
       <p class="analogy">The librarian hands you the book.</p></li>

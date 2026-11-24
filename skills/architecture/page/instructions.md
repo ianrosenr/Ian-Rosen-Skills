@@ -11,20 +11,30 @@ For the line item "Architecture page, diagram and video for chunk N". Output liv
 
 First time (folder missing): copy every file from this directory's `templates/` into `docs/architecture/` keeping the layout, add a `docs/` line to AGENTS.md Layout if missing, then fill them in.
 
-## The reader knows nothing
-Write for someone who has never written code. This rule beats brevity.
-- Spell out every acronym the first time it appears in each section, and in the video narration: "API (Application Programming Interface)". Every acronym also gets a glossary entry. No exceptions: HTTP, URL, JSON, SQL, CLI, CI, DNS, VM, OS, all of them.
-- Explain every technical term in plain words before using it: server, database, request, endpoint, queue, cache, container, deploy, and so on. Each one gets a glossary entry.
-- One analogy family for the whole app, chosen once and reused in the page and the video (e.g. a restaurant: the browser is the customer, the server the waiter, the database the pantry). Every component and every step gets its analogy from that family. Keep the analogy in the page's first section so later chunks reuse it.
-- Short sentences. One idea each. No "simply", "just", "obviously".
+## The reader: a junior software engineer
+Knows how to code, use git and a terminal, and what HTTP, JSON, an API and a CLI are. Doesn't yet know infrastructure, security or distributed-systems details. Explain those properly; don't explain the basics.
+- Spell out every acronym the first time it appears in each section and in the narration ("OCI (Open Container Initiative)"). Skip only the ones every junior knows: HTTP, URL, JSON, API, CLI, git.
+- Explain every infrastructure or security term on first use (container registry, reconcile loop, installation token, certificate pinning...). Each one gets a glossary entry.
+- One analogy family for the whole app, chosen once and reused in the page and the video. Keep analogies to one line: they anchor the idea, the protocol detail carries it.
+- Short sentences. No "simply", "just", "obviously".
+
+## How each hop works (the core of the page)
+For every numbered step, say how the two parts actually talk, in this order, one short line each:
+- Transport: subprocess + stdin/stdout, HTTPS REST, git over HTTPS or SSH, SSH command, a polling loop...
+- Auth: what proves who's calling (OAuth token, API token header, SSH key, short-lived app token, none) and where the secret lives.
+- Payload: what is sent and what comes back (JSON shape, file, artifact, exit code).
+- Sync or async: does the caller wait, poll a task id, or does the other side pull on its own schedule?
+- Failure: what happens on timeout or error (retry with backoff, step marked failed, re-run resumes).
+- Why this protocol: one line on the trade-off that made it the choice (link the ADR).
+Pull vs push, trust boundaries and where plaintext secrets exist (and for how long) are worth calling out every time they apply.
 
 ## Content (follow the template's sections, in order)
 1. What the app does: 2-4 plain sentences. Who uses it and what they get.
 2. The big picture: the diagram, then the analogy that maps onto it.
 3. The video.
-4. Step by step: one real user action, numbered from start to finish (e.g. "you type a note and press Enter"). Each step: what happens, which part does it, what data moves, the analogy. Step numbers match the numbers on the diagram's arrows. More than one key action -> one numbered walk-through each.
+4. Step by step: one real user action, numbered from start to finish (e.g. "you type a note and press Enter"). Each step: what happens, which part does it, then the hop lines (transport, auth, payload, sync/async, failure, why), then the one-line analogy. Step numbers match the numbers on the diagram's arrows. More than one key action -> one numbered walk-through each.
 5. The parts: one card per component: what it is, what it does here, its analogy, where it lives in the code (folder), why we chose it (link the ADR).
-6. Glossary: every acronym and term on the page, alphabetical: the full form, a plain definition, an everyday example.
+6. Glossary: every acronym and infrastructure/security term on the page, alphabetical: the full form, a definition a junior engineer can use, an example from this app.
 7. Decisions: every ADR in `docs/adr/`, one line each, linked.
 8. What changed: newest chunk first, 1-3 lines per chunk.
 
@@ -38,13 +48,13 @@ The page adapts to the display: keep the template's CSS (width and text size sca
 
 ## Diagram (D2)
 - One box per component, 12 or fewer. Label = plain name on the first line, technology in small text on the second (e.g. "Note storage\nSQLite database").
-- Every arrow labeled with what moves along it, and numbered to match the step-by-step.
+- Every arrow labeled with its number, what moves along it and the protocol (e.g. "5. HTTPS REST + git push").
 - Trust boundaries (where data crosses from something we don't control, like the internet or a user's input) are dashed containers, labeled.
 - Planned parts: `style.opacity: 0.35` and "(chunk N)" in the label.
 - Render: `d2 architecture.d2 architecture.svg` (build.sh does this). Check it in a browser: text, arrows and numbers all readable.
 
 ## Video (Manim + Kokoro)
-- 1-3 minutes. Same steps, same analogy, same plain words as the page. Acronyms spelled out aloud.
+- 1-3 minutes. Same steps, same analogy, same words as the page. Acronyms spelled out aloud. On each hop, name the transport and auth as the dot travels it.
 - Structure: what the app does -> build the diagram up one part at a time (each part appears as the narration explains it) -> walk the numbered steps with a moving dot or highlight -> recap in one sentence.
 - One idea per narration line. Each `self.say(...)` returns its length; give animations that run time so picture and voice stay in sync.
 - Shapes and labels only; no clip art. Text at least 24pt. Plain-name labels match the diagram.
@@ -52,7 +62,8 @@ The page adapts to the display: keep the template's CSS (width and text size sca
 - Render: `docs/architecture/build.sh` (needs `brew install d2 cairo pango pkgconf espeak-ng` and uv; first run downloads the voice model).
 
 ## Done when (copy these into IMPLEMENTME.md)
-- Given the page, when every acronym and technical term is checked, then each is spelled out or explained at first use and has a glossary entry.
+- Given the page, when every acronym and infrastructure/security term is checked, then each is spelled out or explained at first use and has a glossary entry.
+- Given each numbered step, then it states transport, auth, payload, sync/async, failure handling and why, and matches the code.
 - Given the page and video, then every component and step has an analogy from the one analogy family.
 - Given the step-by-step section, then each step names the part, the data, and its arrow number on the diagram.
 - Given the code at the end of this chunk, then the page, diagram and video describe it accurately; planned parts are marked "coming in chunk N".
