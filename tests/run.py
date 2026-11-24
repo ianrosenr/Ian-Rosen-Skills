@@ -4,6 +4,7 @@ fresh `claude -p` session (never resumed, never saved), then a judge grades the 
 against expected.md. No cached inputs, no baselines.
 
 Usage: python3 tests/run.py [skill] [--case NAME] [--runs N]
+Prints token counts per run (agent + judge, all models): subscription usage, not dollars.
 Env:   AGENT_MODEL (default claude-sonnet-5-5), JUDGE_MODEL (default claude-opus-5-5)
 """
 from __future__ import annotations
@@ -39,6 +40,28 @@ JUDGE_SCHEMA = {
 def skill_version(path: Path) -> str:
     m = re.search(r'version:\s*"([^"]+)"', path.read_text(encoding="utf-8"))
     return m.group(1) if m else "?"
+
+
+def tokens(run: dict) -> dict[str, int]:
+    """Token totals for one `claude -p` run, all models (subagents included). Subscription usage, not dollars."""
+    per_model = (run.get("modelUsage") or {}).values()
+    if per_model:
+        get = lambda k: sum(int(m.get(k) or 0) for m in per_model)
+        fresh, cached, out = get("inputTokens") + get("cacheCreationInputTokens"), get("cacheReadInputTokens"), get("outputTokens")
+    else:
+        u = run.get("usage") or {}
+        fresh = int(u.get("input_tokens") or 0) + int(u.get("cache_creation_input_tokens") or 0)
+        cached, out = int(u.get("cache_read_input_tokens") or 0), int(u.get("output_tokens") or 0)
+    return {"input": fresh + cached, "cached": cached, "output": out}
+
+
+def add(a: dict, b: dict) -> dict:
+    return {k: a.get(k, 0) + b.get(k, 0) for k in ("input", "cached", "output")}
+
+
+def fmt(t: dict) -> str:
+    k = lambda n: f"{n / 1000:.1f}k" if n >= 1000 else str(n)
+    return f"{k(t.get('input', 0))} in ({k(t.get('cached', 0))} cached) / {k(t.get('output', 0))} out"
 
 
 def snapshot(ws: Path) -> dict[str, str]:
@@ -85,7 +108,7 @@ def run_case(case: Path, run: int, out_dir: Path) -> dict:
         result = {"case": f"{meta['skill']}/{case.name}", "run": run, "skill_version": skill_version(skill_file),
                   "agent_model": AGENT_MODEL, "judge_model": JUDGE_MODEL,
                   "pass": bool(items) and all(i["pass"] for i in items), "items": items,
-                  "cost_usd": round(agent.get("total_cost_usd", 0) + judged.get("total_cost_usd", 0), 4),
+                  "tokens": add(tokens(agent), tokens(judged)),
                   "agent_output": agent.get("result", ""), "changed_files": changed}
     finally:
         shutil.rmtree(ws, ignore_errors=True)
@@ -106,7 +129,7 @@ def main() -> int:
         return 2
     out_dir = REPO / "tests" / "results" / time.strftime("%Y-%m-%dT%H-%M-%S")
     out_dir.mkdir(parents=True)
-    fails = 0
+    fails, total = 0, {}
     for case in cases:
         for run in range(1, a.runs + 1):
             try:
@@ -114,13 +137,14 @@ def main() -> int:
             except Exception as e:  # report and keep going; a crash counts as a fail
                 r = {"case": f"{case.parent.name}/{case.name}", "run": run, "pass": False, "error": str(e), "items": []}
             fails += not r["pass"]
-            print(f"{'PASS' if r['pass'] else 'FAIL'}  {r['case']} run {run}  v{r.get('skill_version', '?')}  ${r.get('cost_usd', 0)}")
+            total = add(total, r.get("tokens", {}))
+            print(f"{'PASS' if r['pass'] else 'FAIL'}  {r['case']} run {run}  v{r.get('skill_version', '?')}  {fmt(r.get('tokens', {}))}")
             for i in r["items"]:
                 if not i["pass"]:
                     print(f"      x {i['expect']}: {i['why']}")
             if "error" in r:
                 print(f"      error: {r['error']}")
-    print(f"\n{fails} failed. Results: {out_dir}")
+    print(f"\n{fails} failed. Tokens: {fmt(total)} (subscription usage). Results: {out_dir}")
     return 1 if fails else 0
 
 
