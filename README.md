@@ -23,7 +23,7 @@ Two files drive everything in the app repo:
 |---|---|
 | `/new-repo <name>` | Creates the repo (separate tool). |
 | `/irs:grill` | Light conversation about the idea. Writes plan.md: chunk 1 (the first walking skeleton) with every line item, later chunks with what still needs figuring out. |
-| `/irs:research` | Does this exist already? What services can we use instead of building? Gives a pursue verdict. |
+| `/irs:research [question]` | No question, after the first grill: does this exist already, what can we use instead of building, pursue verdict. With a question: the tried-and-tested ways to do it at this app's size and growth, with a recommendation and sources. |
 | `/irs:architecture` | Decides only what chunk 1 needs; edge cases get noted, not asked. Writes an ADR (Architecture Decision Record) per decision in `docs/adr/`. Refines the line items, ending the chunk with an architecture page item. |
 | `/irs:ready` | Checks the chunk for obvious gaps. On your yes, marks it ready and opens a plan PR (plan.md + ADRs). You merge it. |
 | `/irs:implementme` | Writes IMPLEMENTME.md for the next line item. You review it and ask for edits. |
@@ -45,12 +45,13 @@ Before any code, two conversations build `plan.md`. Nothing is committed until y
   └─► plan.md: chunk 1 = first walking skeleton, every line item listed (one PR each)
                later chunks = goal + "needs" + "to figure out"
   │
-/irs:research                    competitors, services to use instead of building, pursue verdict
+/irs:research                    idea check: competitors, services to use instead of building, pursue verdict
   └─► plan.md ## Research; proposed plan changes applied only if you agree
   │
 /irs:architecture                technical conversation, only what chunk 1 needs to start
   │   layout, data, interfaces, dependencies, security, tests; simplest option first
   │   security and data-loss questions always asked; everything else noted, not asked
+  │   questions with an industry-standard answer: researched first (subagent), options cite it
   └─► plan.md ## Decisions (D-n), docs/adr/NNNN-*.md per decision, AGENTS.md ## Layout,
       line items split to one change each, last item = architecture page + diagram + video
   │
@@ -94,6 +95,7 @@ One line item, one run, one PR. You stay in control at three points: approving I
 | New app idea, no repo yet | `/new-repo <name>`, then `/irs:grill` in it |
 | Repo exists but has no plan.md | `/irs:grill` |
 | Idea talked through, not sure it's worth building | `/irs:research` |
+| "How do apps like mine usually do X?" | `/irs:research <question>` (grill and architecture also do this on their own; say "research it" mid-conversation) |
 | A chunk's line items need technical decisions | `/irs:architecture chunk N` |
 | One line item is big (new component, data or outside service) | `/irs:architecture T-n` |
 | Chunk looks done in plan.md, want to start building | `/irs:ready chunk N` |
