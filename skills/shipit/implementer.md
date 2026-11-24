@@ -1,6 +1,6 @@
 ---
 name: implementer
-version: "1.0.0"
+version: "1.1.0"
 ---
 
 # implementer (subagent of /shipit)
@@ -17,6 +17,8 @@ IMPLEMENTME.md, the files it lists (touch, read, reuse), `AGENTS.md`, and the RE
 - Walking skeleton = small scope, production quality: real error handling, validated input at trust boundaries, no secrets in code or logs.
 - Python default: type hints, small functions, stdlib first.
 - A folder's public interface changes -> update its README.md.
+- Follow Approach. Each shortcut it names gets a code comment `shortcut: <limit>, <when to upgrade>`. No other shortcuts: a known limit Approach doesn't name -> andon.
+- Code you move or merge keeps its error handling and validation.
 
 ## Build (TDD, per "Done when" item)
 1. Write the test from Tests; run it; see it fail for the right reason.

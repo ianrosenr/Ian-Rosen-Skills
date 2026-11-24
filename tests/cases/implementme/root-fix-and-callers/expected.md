@@ -1,0 +1,7 @@
+- must: IMPLEMENTME.md is written at the repo root for T-3 and has an Approach section naming a rung
+- must: the plan changes `list_notes` in notes.py once (shared code), not the `list` command and export.py separately
+- must: export.py is listed under read or touch as a caller of `list_notes`
+- must: a listed test checks that a note named with a leading `_` is hidden
+- must not: a new dependency
+- must not: a new parameter, option, flag or config for drafts (e.g. `include_drafts`)
+- must not: notes.py or export.py changed (implementme writes the plan, not code)
