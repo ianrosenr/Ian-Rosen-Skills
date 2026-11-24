@@ -12,7 +12,11 @@
 <where it runs, who can reach it>
 
 ## Growth
-<what it must be able to grow into (users, data, features), roughly when. Architecture builds the simplest thing that does not block this.>
+- now: <users, data, load at launch>
+- next year: <realistic>
+- maximum potential: <the most it could become if it takes off: users, data, load, features>
+- how fast: <how quickly it could get there, e.g. "weeks, if a post goes viral">
+<Architecture builds the simplest thing that fits now and can reach the maximum potential in time.>
 
 ## Non-goals
 - <not building>

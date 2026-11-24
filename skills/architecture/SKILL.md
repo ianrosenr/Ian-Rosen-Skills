@@ -2,7 +2,7 @@
 name: architecture
 description: 'Decide only what the next chunk of plan.md (or one large line item) needs to be built, note everything else without asking, refine the line items, write an ADR for every decision, and end the chunk with an architecture page + diagram + video line item. Use after /irs:grill and /irs:research, before /irs:ready. args: "[chunk N | T-n]"'
 metadata:
-  version: "1.1.0"
+  version: "1.2.0"
 ---
 
 # architecture
@@ -10,11 +10,17 @@ metadata:
 Input: repo-root `plan.md`. Scope = `chunk N`, or `T-n` (one line item marked `needs: architecture`), else the first chunk whose `needs` includes architecture.
 
 ## Core principle
-Build the simplest thing that lets the app grow into `## Growth`. Every question's options include the simplest one; recommend it unless it blocks Growth, and then say what it blocks.
+Build the simplest thing that fits now and can reach `## Growth`'s maximum potential faster than the app could grow there. Every question's options include the simplest one; recommend it unless its path to the maximum is too slow (a data migration or rewrite when growth could come in weeks), and then say so and recommend the next option up. Record each decision's growth path and its trigger in the ADR.
 
 ## Defaults
 - Python 3.12+, uv, pytest, unless the user picks otherwise.
-- Use the `## Research` services the user agreed to.
+- Use the `## Research` services the user agreed to, and its earlier findings.
+
+## Research? (first question of every session)
+Ask: "Research before we start? Suggested: <the tried-and-tested ways to build this scope's goal, covering its `to figure out` list>. Yes / no / research something else: ___".
+- Yes or a custom topic -> spawn one subagent (Agent tool): "Read `../research/SKILL.md` from this skill's directory (absolute path) and follow it. Question: <the user's topic or the suggestion>. Called by /irs:architecture: return the findings block only." Paste the findings into plan.md `## Research`; build the options from them, citing the source; link them from the ADRs.
+- No -> go straight to the questions.
+- Later in the session, more research only when the user says "research it" on a question.
 
 ## Loop
 - Ask only what blocks this scope's line items. One question at a time: 1-2 lines of context, 2-4 options (simplest included) with a pro and a con each, your recommendation + why.
@@ -36,7 +42,7 @@ Build the simplest thing that lets the app grow into `## Growth`. Every question
 
 ## Write
 - Decisions -> plan.md. Set `test_cmd` once decided.
-- ADRs: one file per decision made in this conversation, `docs/adr/<NNNN>-<slug>.md` (next free number, 4 digits), from `adr-template.md` in this skill's directory. Options considered = every option you offered, with its pros and cons. Why = the user's reasons, in their words where they gave them. A decision that replaces an earlier one -> new ADR; set the old one's status to `superseded by NNNN`. Never delete an ADR.
+- ADRs: one file per decision made in this conversation, `docs/adr/<NNNN>-<slug>.md` (next free number, 4 digits), from `adr-template.md` in this skill's directory. Options considered = every option you offered, with its pros and cons. Why = the user's reasons, in their words where they gave them; link any research findings used. A decision that replaces an earlier one -> new ADR; set the old one's status to `superseded by NNNN`. Never delete an ADR.
 - Line items of this scope: split anything that is more than one change, add missing ones (project skeleton, CI), order by dependency. Format: `- [ ] T-n: <change> (folders: a/, b/)`.
 - Last line item: a chunk always ends with `- [ ] T-n: Architecture page, diagram and video for chunk N (folders: docs/architecture/)`. Add it if missing; keep it last. A `T-n` scope instead gets `- [ ] T-m: Architecture page, diagram and video for T-n (folders: docs/architecture/)` right after T-n. Rules for that item: `page/instructions.md` in this skill's directory.
 - Layout decided -> repo-root `AGENTS.md` `## Layout` (create if missing): one line per top-level folder: what it owns. Each folder's `README.md` is written by the line item that creates the folder.

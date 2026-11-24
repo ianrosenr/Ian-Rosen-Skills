@@ -2,6 +2,17 @@
 
 Each skill file has its own semver (`metadata.version` in SKILL.md; `version` in shipit/implementer.md and shipit/reviewer.md). Minor = new rule or behavior. Patch = wording. Every bump: a line here, and `python3 tests/run.py <skill>` passes.
 
+## 2026-11-24: plugin irs 1.0.2, research answers any question
+- research 1.1.0: researches what it's given. Idea check (does this exist, what to use instead of building, verdict) or "how is this usually done": 2-4 tried-and-tested approaches judged against plan.md's size and Growth, with a recommendation, growth path and sources. Returns a findings block when called by another skill; appends to plan.md `## Research` when run directly.
+- architecture 1.2.0: first question of every session: research before we start? (suggested topic from the chunk; yes / no / something else). Findings feed the options and ADRs. More only on "research it".
+- grill 1.1.0: research only when the user says "research it".
+- research: fit to the app's size beats popularity (most write-ups describe large teams). Every option sourced (dismissed ones too); looks in framework docs and security guides before saying "no source"; several questions = one block with nested sub-questions and a fit-together line.
+- Growth has four parts: now, next year, maximum potential, how fast (grill asks all four; plan template). research and architecture pick the simplest option that fits now AND can reach the maximum faster than the app could grow there; each option shows its path to the maximum and switch time.
+- research: called by another skill with incomplete Growth -> states the size it assumed; `context` line covers now, next year, maximum and speed. Background-jobs fixture moved to the four-part Growth.
+- New case: `research/fast-growth-database` (2/2 runs pass). Its first runs found: missing switch times on some options (now a pre-return self-check) and a correct recommendation whose reasons didn't name growth speed (now the recommendation states why it's safe if growth hits the maximum within the stated time).
+- New case: `research/whole-chunk-small-app` (found 2 gaps on the first runs: an unsourced option, a single-option answer; fixed in the skill).
+- New case: `research/standard-background-jobs-small-app`.
+
 ## 2026-11-24: plugin irs 1.0.1, branch hygiene
 - implementme 1.2.1: before each item, `git fetch --prune` and delete local branches whose remote was deleted by a merge (never ones without an upstream).
 - shipit 1.0.2: PR body note that `Closes #I` closes the issue and the merge deletes the branch (repo auto-delete; new-repo sets it, ADR 0056).

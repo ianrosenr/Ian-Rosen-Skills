@@ -1,0 +1,1 @@
+Read {skill} and follow it exactly. Called by /irs:architecture: return the findings block only. Question: How should this app run its scheduled background jobs (a nightly import and an hourly reminder check)?

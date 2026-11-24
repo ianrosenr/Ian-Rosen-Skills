@@ -1,0 +1,6 @@
+- must: a findings block with the question, the context used (2 users growing to about 10, one homelab VM), options, a recommendation and sources
+- must: lists 2-4 established approaches, e.g. cron or a Kubernetes CronJob, an in-process scheduler like APScheduler, a task queue like Celery or RQ
+- must: the recommendation is a simple option that fits a 2-10 user app on one VM, and either names the trigger for its next step or says it holds up to the maximum potential (~50 users)
+- must: every option and the recommendation have at least one source link
+- must not: recommend a distributed queue or streaming system (Kafka, RabbitMQ cluster, Celery with a separate broker) as the choice for this app's current size
+- must not: plan.md changed (called by another skill: findings only)

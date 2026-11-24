@@ -40,7 +40,8 @@ Before any code, two conversations build `plan.md`. Nothing is committed until y
 /new-repo my-app                 empty repo: rules, checks, protection, plugin
   │
 /irs:grill                       light, non-technical conversation, one question at a time
-  │   vision, users, hosting, features, what the first release must show, growth, non-goals
+  │   vision, users, hosting, features, what the first release must show, non-goals,
+  │   growth: now, next year, maximum potential, and how fast it could get there
   │   edge cases are noted (E-n), not asked
   └─► plan.md: chunk 1 = first walking skeleton, every line item listed (one PR each)
                later chunks = goal + "needs" + "to figure out"
