@@ -1,6 +1,6 @@
 # T-<n>: <title>
 chunk: <N> | test_cmd: `<cmd>` | implementme: <skill version>
-issue: <none until /shipit>
+issue: <none until /irs:shipit>
 
 ## Change
 <2-4 lines: what changes and the user-visible effect>

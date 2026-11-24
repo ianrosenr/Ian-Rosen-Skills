@@ -1,6 +1,6 @@
 ---
 name: implementme
-description: 'Write IMPLEMENTME.md for the next unchecked line item of a ready chunk in plan.md: the smallest complete change, every file it must reach (callers included), code to reuse, tests. Reads only the parts of the repo the item needs. The user reviews it; /shipit approves it. args: "[T-n]"'
+description: 'Write IMPLEMENTME.md for the next unchecked line item of a ready chunk in plan.md: the smallest complete change, every file it must reach (callers included), code to reuse, tests. Reads only the parts of the repo the item needs. The user reviews it; /irs:shipit approves it. args: "[T-n]"'
 metadata:
   version: "1.2.0"
 ---
@@ -12,8 +12,8 @@ Plan like a lazy senior dev: the best code is code never written. Find the small
 ## Preconditions (in order; stop with a message on the first one that fails)
 1. Clean working tree. `git checkout main && git pull --ff-only`.
 2. No open PR from a `t-*` branch (`gh pr list --state open --json number,headRefName`). Open -> "Review and merge PR #n first."
-3. Item = `T-n` if given, else the first unchecked item of the first `status: ready` chunk. None left -> say which chunk is next and what it needs (`/grill chunk N`, `/research`, `/architecture chunk N`, `/ready chunk N`).
-4. Item is `T-n` and branch `t-<n>-*` exists with an IMPLEMENTME.md (a re-run after /retro) -> rewrite that file in place, keep its `issue:` line.
+3. Item = `T-n` if given, else the first unchecked item of the first `status: ready` chunk. None left -> say which chunk is next and what it needs (`/irs:grill chunk N`, `/irs:research`, `/irs:architecture chunk N`, `/irs:ready chunk N`).
+4. Item is `T-n` and branch `t-<n>-*` exists with an IMPLEMENTME.md (a re-run after /irs:retro) -> rewrite that file in place, keep its `issue:` line.
 
 ## Read (as little as possible)
 - `plan.md` in full: checked items = done work; Decisions; Open questions for this chunk.
@@ -49,7 +49,7 @@ Branch `t-<n>-<slug>` from main. Write repo-root `IMPLEMENTME.md` from `implemen
 - Item creates a top-level folder -> include its `README.md` and the `AGENTS.md` Layout line in `touch`.
 - Architecture page item -> under `read`: `../architecture/page/instructions.md` from this skill's directory (absolute path), the ADRs, and the code of every part it describes. Copy that file's "Done when" list into Done when. `docs/architecture/` missing -> `touch` gets every file in `../architecture/page/templates/` as new. test_cmd for this item: `docs/architecture/build.sh`.
 - Fits one screen (about 60 lines). Longer -> the item is too big: propose a split.
-- Behavior nobody decided -> don't guess: put it under Questions. /shipit won't run until Questions says none.
+- Behavior nobody decided -> don't guess: put it under Questions. /irs:shipit won't run until Questions says none.
 
 ## Done
-Reply: path, item, approach rung, number of files to touch. Then one or two lines: what you skipped or did not check, and any risk the user must know. "Review it, ask for edits, or type `/shipit` to approve."
+Reply: path, item, approach rung, number of files to touch. Then one or two lines: what you skipped or did not check, and any risk the user must know. "Review it, ask for edits, or type `/irs:shipit` to approve."

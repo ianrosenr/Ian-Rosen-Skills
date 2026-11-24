@@ -3,10 +3,14 @@
 Claude Code skills for building an app one small, reviewed PR at a time. You make the decisions in short conversations, agents write the code, and you review every PR before it merges.
 
 ## Install
+Claude Code plugin `irs`; commands are `/irs:grill`, `/irs:shipit`, ...
 ```
-npx skills@latest add ianrosenr/Ian-Rosen-Skills -a claude-code -g -y
+claude plugin marketplace add ianrosenr/Ian-Rosen-Skills
+claude plugin install irs@irskills
 ```
-Working on the skills themselves: clone and run `scripts/link-skills.sh` (symlinks `~/.claude/skills/<name>` to this repo, so edits take effect at once).
+Every repo made by `/new-repo` already declares it in `.claude/settings.json`, so opening one in Claude Code offers to install it. Update: `claude plugin marketplace update irskills && claude plugin update irs@irskills`.
+
+Working on the skills themselves: `claude --plugin-dir ~/Projects/Skills` loads your local copy (edits apply on the next session) instead of the installed one.
 
 Needs: `gh` (logged in), `git`. Apps default to Python (uv, pytest).
 
@@ -18,16 +22,16 @@ Two files drive everything in the app repo:
 | You type | What happens |
 |---|---|
 | `/new-repo <name>` | Creates the repo (separate tool). |
-| `/grill` | Light conversation about the idea. Writes plan.md: chunk 1 (the first walking skeleton) with every line item, later chunks with what still needs figuring out. |
-| `/research` | Does this exist already? What services can we use instead of building? Gives a pursue verdict. |
-| `/architecture` | Decides only what chunk 1 needs; edge cases get noted, not asked. Writes an ADR (Architecture Decision Record) per decision in `docs/adr/`. Refines the line items, ending the chunk with an architecture page item. |
-| `/ready` | Checks the chunk for obvious gaps. On your yes, marks it ready and opens a plan PR (plan.md + ADRs). You merge it. |
-| `/implementme` | Writes IMPLEMENTME.md for the next line item. You review it and ask for edits. |
-| `/shipit` | Your approval. Creates the issue, then implement, review, at most one fix and a second review, then stops and reports. Clean -> PR (checks off the line item, deletes IMPLEMENTME.md). |
-| `/shipit <PR#>` | After you comment on the PR: the implementer addresses each comment, the reviewer checks the fixes, replies go on each thread. You resolve threads and merge. |
-| `/retro` | When review 2 isn't clean: we find which step let the problem through, fix that skill here, add test cases with your expected output, run the tests, open a PR in this repo. Then `/shipit` re-runs the same item. |
+| `/irs:grill` | Light conversation about the idea. Writes plan.md: chunk 1 (the first walking skeleton) with every line item, later chunks with what still needs figuring out. |
+| `/irs:research` | Does this exist already? What services can we use instead of building? Gives a pursue verdict. |
+| `/irs:architecture` | Decides only what chunk 1 needs; edge cases get noted, not asked. Writes an ADR (Architecture Decision Record) per decision in `docs/adr/`. Refines the line items, ending the chunk with an architecture page item. |
+| `/irs:ready` | Checks the chunk for obvious gaps. On your yes, marks it ready and opens a plan PR (plan.md + ADRs). You merge it. |
+| `/irs:implementme` | Writes IMPLEMENTME.md for the next line item. You review it and ask for edits. |
+| `/irs:shipit` | Your approval. Creates the issue, then implement, review, at most one fix and a second review, then stops and reports. Clean -> PR (checks off the line item, deletes IMPLEMENTME.md). |
+| `/irs:shipit <PR#>` | After you comment on the PR: the implementer addresses each comment, the reviewer checks the fixes, replies go on each thread. You resolve threads and merge. |
+| `/irs:retro` | When review 2 isn't clean: we find which step let the problem through, fix that skill here, add test cases with your expected output, run the tests, open a PR in this repo. Then `/irs:shipit` re-runs the same item. |
 
-After a merge, `/implementme` starts the next item. When a chunk is done, run its `needs` (`/grill chunk N`, `/research`, `/architecture chunk N`), then `/ready chunk N`. Each command ends by naming the next one, and every step works from a fresh session because state lives in files and GitHub.
+After a merge, `/irs:implementme` starts the next item. When a chunk is done, run its `needs` (`/irs:grill chunk N`, `/irs:research`, `/irs:architecture chunk N`), then `/irs:ready chunk N`. Each command ends by naming the next one, and every step works from a fresh session because state lives in files and GitHub.
 
 Walking skeleton = production-quality code with bare-bones scope: the smallest end-to-end version that shows how the app looks and feels. Cut scope, never quality.
 
@@ -65,4 +69,4 @@ A case is a folder `tests/cases/<skill folder>/<case>/`:
 - `setup.sh` (optional): runs in the workspace after copying (e.g. builds git history)
 - `expected.md`: bullets starting `must:` or `must not:`, in your words
 
-`/retro` adds a case for every gap it fixes, so this set grows from real misses.
+`/irs:retro` adds a case for every gap it fixes, so this set grows from real misses.

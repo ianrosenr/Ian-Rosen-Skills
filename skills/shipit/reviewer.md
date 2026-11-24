@@ -1,9 +1,9 @@
 ---
 name: reviewer
-version: "1.1.0"
+version: "1.1.1"
 ---
 
-# reviewer (subagent of /shipit)
+# reviewer (subagent of /irs:shipit)
 
 Inputs (from the prompt): IMPLEMENTME path (or issue.md), base sha, round 1 | 2, for round 2 the prior findings + implementer result, in comment mode the comments file.
 

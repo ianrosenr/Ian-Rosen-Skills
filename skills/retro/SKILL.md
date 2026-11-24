@@ -1,8 +1,8 @@
 ---
 name: retro
-description: 'After a /shipit run that is not clean after review 2 (or a PR comment that shows a skill gap), talk through what went wrong, then fix the skills in the Ian-Rosen-Skills repo, add test cases with the user''s expected outputs, bump versions, run the tests until they pass, and open a PR there. args: "[T-n]"'
+description: 'After a /irs:shipit run that is not clean after review 2 (or a PR comment that shows a skill gap), talk through what went wrong, then fix the skills in the Ian-Rosen-Skills repo, add test cases with the user''s expected outputs, bump versions, run the tests until they pass, and open a PR there. args: "[T-n]"'
 metadata:
-  version: "1.0.0"
+  version: "1.0.1"
 ---
 
 # retro
@@ -20,4 +20,4 @@ Skills repo: `~/Projects/Skills` (github.com/ianrosenr/Ian-Rosen-Skills). Not th
 7. Branch `retro-t<n>-<slug>`, commit, push, `gh pr create` (body: gaps, skill edits, new cases, test results). Never merge.
 
 ## Done
-Reply: PR link, gaps -> edits -> cases, test results. Next, in the app repo after the retro PR merges: implementme was the gap -> `/implementme T-<n>` (rewrites the file; review it), then `/shipit`. Otherwise `/shipit` (re-runs the same IMPLEMENTME.md from a clean branch).
+Reply: PR link, gaps -> edits -> cases, test results. Next, in the app repo after the retro PR merges: implementme was the gap -> `/irs:implementme T-<n>` (rewrites the file; review it), then `/irs:shipit`. Otherwise `/irs:shipit` (re-runs the same IMPLEMENTME.md from a clean branch).

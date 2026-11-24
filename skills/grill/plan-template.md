@@ -1,4 +1,4 @@
-<!-- plan.md: the source of truth for this repo. /grill, /research and /architecture write it; /ready commits it in a plan PR; each /shipit PR checks off its line item.
+<!-- plan.md: the source of truth for this repo. /irs:grill, /irs:research and /irs:architecture write it; /irs:ready commits it in a plan PR; each /irs:shipit PR checks off its line item.
      IDs: D-n decisions, T-n line items, E-n open questions. Never renumber; deleted IDs stay retired. -->
 # <app name>
 
@@ -18,16 +18,16 @@
 - <not building>
 
 ## Research
-<written by /research>
+<written by /irs:research>
 
 ## Decisions
-<written by /architecture; each decision also has an ADR in docs/adr/>
+<written by /irs:architecture; each decision also has an ADR in docs/adr/>
 - test_cmd: `<one command that runs all tests from repo root>`
 
 ## Chunks
 Walking skeleton = production-quality code with bare-bones scope: the smallest end-to-end version that shows how the app looks and feels. Not throwaway: tests, error handling and security are real. Cut scope, never quality.
 Line item = one PR that changes one thing (one behavior, fix, or enhancement), small enough for the user to review in about 15 minutes. Two things -> two line items. Many small items is right.
-Chunk status: draft -> ready (user, via /ready) -> done (last item merged).
+Chunk status: draft -> ready (user, via /irs:ready) -> done (last item merged).
 
 ### Chunk 1: <name> | status: draft
 - goal: <what the user can see or do when this chunk is done>
@@ -42,5 +42,5 @@ Chunk status: draft -> ready (user, via /ready) -> done (last item merged).
   - <question>
 
 ## Open questions
-<noted, not asked; settled in a later /grill or /architecture>
+<noted, not asked; settled in a later /irs:grill or /irs:architecture>
 - E-1: <question or edge case> | chunk: 2

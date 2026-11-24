@@ -1,6 +1,6 @@
 ---
 name: architecture
-description: 'Decide only what the next chunk of plan.md (or one large line item) needs to be built, note everything else without asking, refine the line items, write an ADR for every decision, and end the chunk with an architecture page + diagram + video line item. Use after /grill and /research, before /ready. args: "[chunk N | T-n]"'
+description: 'Decide only what the next chunk of plan.md (or one large line item) needs to be built, note everything else without asking, refine the line items, write an ADR for every decision, and end the chunk with an architecture page + diagram + video line item. Use after /irs:grill and /irs:research, before /irs:ready. args: "[chunk N | T-n]"'
 metadata:
   version: "1.1.0"
 ---
@@ -43,4 +43,4 @@ Build the simplest thing that lets the app grow into `## Growth`. Every question
 - Remove `architecture` from the scope's `needs`.
 
 ## Done
-Reply: decisions added (id + one line), ADR files written, line item count, open questions added. Next: `/ready chunk N` (it commits plan.md and the ADRs in the plan PR).
+Reply: decisions added (id + one line), ADR files written, line item count, open questions added. Next: `/irs:ready chunk N` (it commits plan.md and the ADRs in the plan PR).

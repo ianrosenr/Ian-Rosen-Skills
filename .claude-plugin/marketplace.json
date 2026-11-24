@@ -1,0 +1,14 @@
+{
+  "name": "irskills",
+  "description": "Ian Rosen's plan-driven build flow skills.",
+  "owner": {
+    "name": "ianrosenr"
+  },
+  "plugins": [
+    {
+      "name": "irs",
+      "source": "./",
+      "description": "Plan-driven build flow: grill, research, architecture, ready, implementme, shipit, retro."
+    }
+  ]
+}
