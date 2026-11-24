@@ -1,0 +1,121 @@
+<!doctype html>
+<!-- EXAMPLE content throughout: replace every section with this app's. Keep the section order and the styles. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Notes Architecture</title>
+<style>
+  :root {
+    --bg: #fafaf9; --card: #ffffff; --text: #1c1917; --muted: #57534e; --line: #e7e5e4;
+    --accent: #2563eb; --accent-soft: #dbeafe; --planned: #a8a29e;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #1c1917; --card: #292524; --text: #f5f5f4; --muted: #a8a29e; --line: #44403c;
+      --accent: #60a5fa; --accent-soft: #1e3a5f; --planned: #78716c;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 17px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+  main { max-width: 860px; margin: 0 auto; padding: 32px 16px 64px; }
+  h1 { font-size: 2rem; margin: 0 0 4px; }
+  h2 { margin: 48px 0 12px; padding-top: 8px; border-top: 1px solid var(--line); }
+  .sub { color: var(--muted); margin: 0 0 24px; }
+  nav { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 8px; }
+  nav a { font-size: 14px; padding: 4px 10px; border-radius: 999px; background: var(--accent-soft); color: var(--text); text-decoration: none; }
+  a { color: var(--accent); }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 16px 20px; margin: 12px 0; }
+  .diagram { background: #fff; border-radius: 12px; border: 1px solid var(--line); padding: 12px; }
+  .diagram img, video { width: 100%; height: auto; display: block; border-radius: 8px; }
+  .analogy { border-left: 4px solid var(--accent); padding: 4px 0 4px 14px; color: var(--muted); }
+  .analogy::before { content: "Like: "; font-weight: 600; color: var(--text); }
+  ol.steps { padding-left: 0; list-style: none; counter-reset: step; }
+  ol.steps > li { counter-increment: step; position: relative; padding-left: 52px; margin: 18px 0; }
+  ol.steps > li::before { content: counter(step); position: absolute; left: 0; top: 0; width: 36px; height: 36px; border-radius: 50%;
+    background: var(--accent); color: #fff; display: grid; place-items: center; font-weight: 700; }
+  .parts { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
+  .parts .card { margin: 0; }
+  .meta { font-size: 14px; color: var(--muted); }
+  .planned { opacity: .55; }
+  .planned h3::after { content: " (coming later)"; font-weight: 400; color: var(--planned); }
+  dl.glossary dt { font-weight: 700; margin-top: 14px; }
+  dl.glossary dd { margin: 2px 0 0 0; }
+  dl.glossary .eg { color: var(--muted); }
+  code { background: var(--accent-soft); padding: 1px 5px; border-radius: 4px; font-size: .9em; }
+</style>
+</head>
+<body>
+<main>
+  <h1>How Notes works</h1>
+  <p class="sub">Updated after chunk 1 (EXAMPLE). Written for someone who has never written code.</p>
+  <nav>
+    <a href="#what">What it does</a><a href="#picture">Big picture</a><a href="#video">Video</a>
+    <a href="#steps">Step by step</a><a href="#parts">The parts</a><a href="#glossary">Glossary</a>
+    <a href="#decisions">Decisions</a><a href="#changes">What changed</a>
+  </nav>
+
+  <h2 id="what">1. What it does</h2>
+  <p>Notes keeps short text notes on your own computer. You type a command in the terminal (a window where you type instructions instead of clicking), and Notes saves or shows your notes.</p>
+
+  <h2 id="picture">2. The big picture</h2>
+  <div class="diagram"><img src="architecture.svg" alt="Diagram: you, the command line program, and the notes folder, connected by numbered arrows"></div>
+  <p><strong>The analogy we use everywhere: a library.</strong> You are a visitor. The program is the librarian. The notes folder is the shelf. You ask the librarian for something; the librarian walks to the shelf and brings it back.</p>
+
+  <h2 id="video">3. Video</h2>
+  <video controls preload="metadata" src="architecture.mp4"></video>
+  <p class="meta">About 1 minute, narrated. Same steps as below.</p>
+
+  <h2 id="steps">4. Step by step: you ask to see a note</h2>
+  <ol class="steps">
+    <li><strong>You type <code>notes show todo</code> and press Enter.</strong> The terminal hands your words to the Notes program. Data: the words "show" and "todo".
+      <p class="analogy">You walk up to the librarian's desk and ask for the book called "todo".</p></li>
+    <li><strong>The program checks the name is safe (arrow 1).</strong> It only allows letters, numbers, <code>-</code> and <code>_</code>, so nobody can trick it into opening a file outside the notes folder.
+      <p class="analogy">The librarian makes sure you're asking for a book, not for the keys to the back office.</p></li>
+    <li><strong>The program reads the file <code>notes/todo.md</code> (arrow 2).</strong> A file is a named piece of saved text on the disk (the computer's long-term memory).
+      <p class="analogy">The librarian takes the book off the shelf.</p></li>
+    <li><strong>The program prints the text in your terminal (arrow 3).</strong>
+      <p class="analogy">The librarian hands you the book.</p></li>
+  </ol>
+
+  <h2 id="parts">5. The parts</h2>
+  <div class="parts">
+    <div class="card"><h3>The Notes program</h3>
+      <p>A CLI (Command Line Interface: a program you use by typing commands). Written in Python, a popular programming language.</p>
+      <p class="analogy">The librarian.</p>
+      <p class="meta">Code: <code>notes.py</code> · Why: <a href="../adr/0001-cli-first.md">ADR 0001</a></p></div>
+    <div class="card"><h3>The notes folder</h3>
+      <p>A folder of plain text files, one file per note.</p>
+      <p class="analogy">The shelf.</p>
+      <p class="meta">Code: <code>notes/</code> · Why: <a href="../adr/0002-files-not-database.md">ADR 0002</a></p></div>
+    <div class="card planned"><h3>Search</h3>
+      <p>Find notes by a word inside them. Coming in chunk 2.</p>
+      <p class="analogy">The library catalogue.</p></div>
+  </div>
+
+  <h2 id="glossary">6. Glossary</h2>
+  <dl class="glossary">
+    <dt>ADR (Architecture Decision Record)</dt>
+    <dd>A short document that records one decision about how the app is built: the options, the choice, and why. <span class="eg">Example: "store notes as files, not in a database".</span></dd>
+    <dt>CLI (Command Line Interface)</dt>
+    <dd>A program you use by typing commands instead of clicking buttons. <span class="eg">Example: typing <code>notes list</code>.</span></dd>
+    <dt>File</dt>
+    <dd>A named piece of saved information on the disk. <span class="eg">Example: <code>todo.md</code>.</span></dd>
+    <dt>Terminal</dt>
+    <dd>A window where you type instructions to the computer. <span class="eg">Example: the Terminal app on a Mac.</span></dd>
+  </dl>
+
+  <h2 id="decisions">7. Decisions</h2>
+  <ul>
+    <li><a href="../adr/0001-cli-first.md">0001</a>: A command line program first, a website later.</li>
+    <li><a href="../adr/0002-files-not-database.md">0002</a>: Notes are plain files, not a database.</li>
+  </ul>
+
+  <h2 id="changes">8. What changed</h2>
+  <ul>
+    <li><strong>Chunk 1:</strong> First version: list and show notes.</li>
+  </ul>
+  <p class="meta">Rebuild the diagram and video: <code>docs/architecture/build.sh</code></p>
+</main>
+</body>
+</html>

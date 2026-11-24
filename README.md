@@ -20,8 +20,8 @@ Two files drive everything in the app repo:
 | `/new-repo <name>` | Creates the repo (separate tool). |
 | `/grill` | Light conversation about the idea. Writes plan.md: chunk 1 (the first walking skeleton) with every line item, later chunks with what still needs figuring out. |
 | `/research` | Does this exist already? What services can we use instead of building? Gives a pursue verdict. |
-| `/architecture` | Decides only what chunk 1 needs; edge cases get noted, not asked. Refines the line items. |
-| `/ready` | Checks the chunk for obvious gaps. On your yes, marks it ready and opens a plan PR. You merge it. |
+| `/architecture` | Decides only what chunk 1 needs; edge cases get noted, not asked. Writes an ADR (Architecture Decision Record) per decision in `docs/adr/`. Refines the line items, ending the chunk with an architecture page item. |
+| `/ready` | Checks the chunk for obvious gaps. On your yes, marks it ready and opens a plan PR (plan.md + ADRs). You merge it. |
 | `/implementme` | Writes IMPLEMENTME.md for the next line item. You review it and ask for edits. |
 | `/shipit` | Your approval. Creates the issue, then implement, review, at most one fix and a second review, then stops and reports. Clean -> PR (checks off the line item, deletes IMPLEMENTME.md). |
 | `/shipit <PR#>` | After you comment on the PR: the implementer addresses each comment, the reviewer checks the fixes, replies go on each thread. You resolve threads and merge. |
@@ -31,6 +31,8 @@ After a merge, `/implementme` starts the next item. When a chunk is done, run it
 
 Walking skeleton = production-quality code with bare-bones scope: the smallest end-to-end version that shows how the app looks and feels. Cut scope, never quality.
 
+Architecture page: every chunk's last line item updates `docs/architecture/`: a page (`index.html`, open it in a browser), a D2 diagram and a narrated video (Manim + Kokoro), all written for someone who has never written code: every acronym spelled out, analogies, step by step. Rules: `skills/architecture/page/instructions.md`. Rebuild: `docs/architecture/build.sh` (needs `brew install d2 cairo pango pkgconf espeak-ng` and uv).
+
 Folder docs: `AGENTS.md` `## Layout` lists each top-level folder; each folder has a README.md (purpose, public interface, conventions). IMPLEMENTME.md points the implementer at only the folders it needs.
 
 ## Skills
@@ -38,7 +40,7 @@ Folder docs: `AGENTS.md` `## Layout` lists each top-level folder; each folder ha
 |---|---|
 | grill | `skills/grill/SKILL.md`, plan.md template `skills/grill/plan-template.md` |
 | research | `skills/research/SKILL.md` |
-| architecture | `skills/architecture/SKILL.md` |
+| architecture | `skills/architecture/SKILL.md`, ADR template `adr-template.md`, page kit `page/` (instructions + templates) |
 | ready | `skills/ready/SKILL.md` |
 | implementme | `skills/implementme/SKILL.md`, template `skills/implementme/implementme-template.md` |
 | shipit | `skills/shipit/SKILL.md`; subagents `skills/shipit/implementer.md`, `skills/shipit/reviewer.md` |
