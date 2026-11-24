@@ -2,7 +2,7 @@
 name: architecture
 description: 'Decide only what the next chunk of plan.md (or one large line item) needs to be built, note everything else without asking, refine the line items, write an ADR for every decision, and end the chunk with an architecture page + diagram + video line item. Use after /irs:grill and /irs:research, before /irs:ready. args: "[chunk N | T-n]"'
 metadata:
-  version: "1.1.0"
+  version: "1.2.0"
 ---
 
 # architecture
@@ -14,10 +14,11 @@ Build the simplest thing that lets the app grow into `## Growth`. Every question
 
 ## Defaults
 - Python 3.12+, uv, pytest, unless the user picks otherwise.
-- Use the `## Research` services the user agreed to.
+- Use the `## Research` services the user agreed to, and its earlier findings.
 
 ## Loop
 - Ask only what blocks this scope's line items. One question at a time: 1-2 lines of context, 2-4 options (simplest included) with a pro and a con each, your recommendation + why.
+- Research before recommending: when a question has an industry-standard answer you aren't sure fits this app's size (auth, data storage, background jobs, deployment, a protocol choice, a library pick), spawn a subagent (Agent tool) with: "Read `../research/SKILL.md` from this skill's directory (absolute path) and follow it. Question: <the question>. Called by /irs:architecture: return the findings block only." Use its options and sources in your options, cite them, and paste the block into plan.md `## Research`. Skip it for questions the user's own preference settles. The user can also say "research it" on any question.
 - Edge cases, later-chunk questions, nice-to-knows: don't ask. Add to Open questions as `E-n` tagged with a chunk.
 - Always ask (never defer): security (auth, untrusted input, secrets, PII) and anything that can lose user data.
 - One-way doors (data model, public interface, hosting, security model): probe harder; say the reversal cost.
@@ -36,7 +37,7 @@ Build the simplest thing that lets the app grow into `## Growth`. Every question
 
 ## Write
 - Decisions -> plan.md. Set `test_cmd` once decided.
-- ADRs: one file per decision made in this conversation, `docs/adr/<NNNN>-<slug>.md` (next free number, 4 digits), from `adr-template.md` in this skill's directory. Options considered = every option you offered, with its pros and cons. Why = the user's reasons, in their words where they gave them. A decision that replaces an earlier one -> new ADR; set the old one's status to `superseded by NNNN`. Never delete an ADR.
+- ADRs: one file per decision made in this conversation, `docs/adr/<NNNN>-<slug>.md` (next free number, 4 digits), from `adr-template.md` in this skill's directory. Options considered = every option you offered, with its pros and cons. Why = the user's reasons, in their words where they gave them; link any research findings used. A decision that replaces an earlier one -> new ADR; set the old one's status to `superseded by NNNN`. Never delete an ADR.
 - Line items of this scope: split anything that is more than one change, add missing ones (project skeleton, CI), order by dependency. Format: `- [ ] T-n: <change> (folders: a/, b/)`.
 - Last line item: a chunk always ends with `- [ ] T-n: Architecture page, diagram and video for chunk N (folders: docs/architecture/)`. Add it if missing; keep it last. A `T-n` scope instead gets `- [ ] T-m: Architecture page, diagram and video for T-n (folders: docs/architecture/)` right after T-n. Rules for that item: `page/instructions.md` in this skill's directory.
 - Layout decided -> repo-root `AGENTS.md` `## Layout` (create if missing): one line per top-level folder: what it owns. Each folder's `README.md` is written by the line item that creates the folder.

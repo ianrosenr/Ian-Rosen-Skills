@@ -2,6 +2,11 @@
 
 Each skill file has its own semver (`metadata.version` in SKILL.md; `version` in shipit/implementer.md and shipit/reviewer.md). Minor = new rule or behavior. Patch = wording. Every bump: a line here, and `python3 tests/run.py <skill>` passes.
 
+## 2026-11-24: plugin irs 1.0.2, research answers any question
+- research 1.1.0: researches what it's given. Idea check (does this exist, what to use instead of building, verdict) or "how is this usually done": 2-4 tried-and-tested approaches judged against plan.md's size and Growth, with a recommendation, growth path and sources. Returns a findings block when called by another skill; appends to plan.md `## Research` when run directly.
+- grill 1.1.0, architecture 1.2.0: before recommending on a question with an industry-standard answer, run research in a subagent and build the options from its findings (cited; ADRs link them). The user can say "research it" anytime.
+- New case: `research/standard-background-jobs-small-app`.
+
 ## 2026-11-24: plugin irs 1.0.1, branch hygiene
 - implementme 1.2.1: before each item, `git fetch --prune` and delete local branches whose remote was deleted by a merge (never ones without an upstream).
 - shipit 1.0.2: PR body note that `Closes #I` closes the issue and the merge deletes the branch (repo auto-delete; new-repo sets it, ADR 0056).

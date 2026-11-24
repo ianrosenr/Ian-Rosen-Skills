@@ -2,7 +2,7 @@
 name: grill
 description: 'Light conversation about an app idea (vision, users, hosting, features, growth), then write plan.md as chunks of small line items, each one PR. Use first in a new repo, or for a later chunk marked `needs: grill`. args: "[chunk N]"'
 metadata:
-  version: "1.0.2"
+  version: "1.1.0"
 ---
 
 # grill
@@ -17,6 +17,7 @@ A conversation, not an interrogation. Keep it light and non-technical; how it is
 - One question at a time: 1-2 lines of context, 2-4 options, your recommendation. Give honest feedback: say when an idea is risky, big, or common.
 - New idea covers: vision, users, hosting (where it runs, who can reach it), the features they want, what the first release must show, growth, non-goals.
 - No technical design (libraries, data models, folders). User raises one -> add it to Open questions for /irs:architecture and move on.
+- Research before recommending: when a question has an industry-standard answer you aren't sure fits this app's size (how apps like this usually handle a feature, what users of this kind of app expect), spawn a subagent (Agent tool) with: "Read `../research/SKILL.md` from this skill's directory (absolute path) and follow it. Question: <the question>. Called by /irs:grill: return the findings block only." Use its options and sources in your options, cite them, and paste the block into plan.md `## Research`. Skip it for questions the user's own preference settles. The user can also say "research it" on any question.
 - Edge cases: don't ask. Add each to Open questions as `E-n`.
 - The user decides. Never write down something they did not say. Write plan.md as you go, so the session can be resumed.
 - Aim for about 10 questions for a new idea, fewer for one chunk. User says "enough" -> stop and write.
