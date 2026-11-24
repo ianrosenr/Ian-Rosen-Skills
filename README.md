@@ -51,7 +51,8 @@ Before any code, two conversations build `plan.md`. Nothing is committed until y
 /irs:architecture                technical conversation, only what chunk 1 needs to start
   │   layout, data, interfaces, dependencies, security, tests; simplest option first
   │   security and data-loss questions always asked; everything else noted, not asked
-  │   questions with an industry-standard answer: researched first (subagent), options cite it
+  │   opens with "research before we start?" (suggested topic from the chunk; yes / no / something else);
+  │   findings shape the options and get cited in the ADRs
   └─► plan.md ## Decisions (D-n), docs/adr/NNNN-*.md per decision, AGENTS.md ## Layout,
       line items split to one change each, last item = architecture page + diagram + video
   │
@@ -95,7 +96,7 @@ One line item, one run, one PR. You stay in control at three points: approving I
 | New app idea, no repo yet | `/new-repo <name>`, then `/irs:grill` in it |
 | Repo exists but has no plan.md | `/irs:grill` |
 | Idea talked through, not sure it's worth building | `/irs:research` |
-| "How do apps like mine usually do X?" | `/irs:research <question>` (grill and architecture also do this on their own; say "research it" mid-conversation) |
+| "How do apps like mine usually do X?" | `/irs:research <question>`, say yes to architecture's opening research question, or say "research it" mid-conversation |
 | A chunk's line items need technical decisions | `/irs:architecture chunk N` |
 | One line item is big (new component, data or outside service) | `/irs:architecture T-n` |
 | Chunk looks done in plan.md, want to start building | `/irs:ready chunk N` |
