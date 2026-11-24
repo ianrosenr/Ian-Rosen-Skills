@@ -1,0 +1,5 @@
+- must: one findings block covering all three questions: sign-in, sharing permissions, and how friends reach the app
+- must: each question has 2-4 established options with source links, and a recommendation sized to 2-10 users on one homelab VM
+- must: the recommendations fit together (e.g. the sign-in choice works with how friends reach the app), and the block says so or shows it
+- must not: recommend an enterprise identity platform or a multi-service architecture as the choice for this app's current size
+- must not: plan.md changed

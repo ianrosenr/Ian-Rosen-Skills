@@ -4,7 +4,10 @@ Each skill file has its own semver (`metadata.version` in SKILL.md; `version` in
 
 ## 2026-11-24: plugin irs 1.0.2, research answers any question
 - research 1.1.0: researches what it's given. Idea check (does this exist, what to use instead of building, verdict) or "how is this usually done": 2-4 tried-and-tested approaches judged against plan.md's size and Growth, with a recommendation, growth path and sources. Returns a findings block when called by another skill; appends to plan.md `## Research` when run directly.
-- grill 1.1.0, architecture 1.2.0: before recommending on a question with an industry-standard answer, run research in a subagent and build the options from its findings (cited; ADRs link them). The user can say "research it" anytime.
+- architecture 1.2.0: first question of every session: research before we start? (suggested topic from the chunk; yes / no / something else). Findings feed the options and ADRs. More only on "research it".
+- grill 1.1.0: research only when the user says "research it".
+- research: fit to the app's size beats popularity (most write-ups describe large teams). Every option sourced (dismissed ones too); looks in framework docs and security guides before saying "no source"; several questions = one block with nested sub-questions and a fit-together line.
+- New case: `research/whole-chunk-small-app` (found 2 gaps on the first runs: an unsourced option, a single-option answer; fixed in the skill).
 - New case: `research/standard-background-jobs-small-app`.
 
 ## 2026-11-24: plugin irs 1.0.1, branch hygiene

@@ -16,9 +16,14 @@ Build the simplest thing that lets the app grow into `## Growth`. Every question
 - Python 3.12+, uv, pytest, unless the user picks otherwise.
 - Use the `## Research` services the user agreed to, and its earlier findings.
 
+## Research? (first question of every session)
+Ask: "Research before we start? Suggested: <the tried-and-tested ways to build this scope's goal, covering its `to figure out` list>. Yes / no / research something else: ___".
+- Yes or a custom topic -> spawn one subagent (Agent tool): "Read `../research/SKILL.md` from this skill's directory (absolute path) and follow it. Question: <the user's topic or the suggestion>. Called by /irs:architecture: return the findings block only." Paste the findings into plan.md `## Research`; build the options from them, citing the source; link them from the ADRs.
+- No -> go straight to the questions.
+- Later in the session, more research only when the user says "research it" on a question.
+
 ## Loop
 - Ask only what blocks this scope's line items. One question at a time: 1-2 lines of context, 2-4 options (simplest included) with a pro and a con each, your recommendation + why.
-- Research before recommending: when a question has an industry-standard answer you aren't sure fits this app's size (auth, data storage, background jobs, deployment, a protocol choice, a library pick), spawn a subagent (Agent tool) with: "Read `../research/SKILL.md` from this skill's directory (absolute path) and follow it. Question: <the question>. Called by /irs:architecture: return the findings block only." Use its options and sources in your options, cite them, and paste the block into plan.md `## Research`. Skip it for questions the user's own preference settles. The user can also say "research it" on any question.
 - Edge cases, later-chunk questions, nice-to-knows: don't ask. Add to Open questions as `E-n` tagged with a chunk.
 - Always ask (never defer): security (auth, untrusted input, secrets, PII) and anything that can lose user data.
 - One-way doors (data model, public interface, hosting, security model): probe harder; say the reversal cost.

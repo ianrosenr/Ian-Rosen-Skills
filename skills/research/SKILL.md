@@ -1,6 +1,6 @@
 ---
 name: research
-description: 'Research what it is given, sized to this app: whether an idea already exists (competitors, services to use instead of building), or the industry-standard, tried-and-tested way to do something at this app''s size and growth. Use directly (`/irs:research <question>`), after the first /irs:grill, or from /irs:grill and /irs:architecture when a question has a known standard answer. args: "[question | idea | chunk N]"'
+description: 'Research what it is given, sized to this app: whether an idea already exists (competitors, services to use instead of building), or the industry-standard, tried-and-tested way to do something at this app''s size and growth. Use directly (`/irs:research <question>`), after the first /irs:grill (idea check), at the start of an /irs:architecture session if the user says yes, or when the user says "research it". args: "[question | idea | chunk N]"'
 metadata:
   version: "1.1.0"
 ---
@@ -22,13 +22,16 @@ Research exactly what you're given; nothing more. Every finding comes with a sou
 **How is this usually done?** (an approach, pattern, tool, or "what's normal here")
 1. Standard approaches: 2-4 tried-and-tested ways, most common first. Per approach: what it is in 1-2 lines, who uses it at what scale, pros, cons, a link to an authoritative source (official docs, well-known engineering write-ups, widely used projects).
 2. Fit: for each, does it suit this app's size and growth now? At what scale would you outgrow it, and what's the usual next step?
-3. Recommendation: the simplest approach that holds up through `## Growth`, with why and its growth path. Say clearly when the answer is "the boring default is fine".
+3. Recommendation: the simplest approach that holds up through `## Growth`, with why and its growth path. Fit to this app's size beats popularity: most write-ups describe large teams; say so when that's why an option is out. Say clearly when the answer is "the boring default is fine".
+
+Several questions at once (e.g. a whole chunk): the same for each, in one findings block, and check the recommendations fit together. Every question gets 2-4 sourced options even when one is clearly standard: name the alternatives with a line on why they lose here. Never present your own design as the only option.
 
 Anything else (a library comparison, a limit, a protocol detail): answer the question directly, with sources, in the same shape: options, fit, recommendation.
 
 ## Rules
-- Every claim has a link. No link -> don't claim it. Note the date.
+- Every claim has a link, including options you mention only to dismiss. An option you can't source: leave it out. Note the date.
 - Prefer primary sources (official docs, maintainers) and recent ones; say when something is contested or sources disagree.
+- Before saying "no source", look where design guidance lives: the framework's own docs (e.g. FastAPI, Django, SQLAlchemy), standards and security guides (OWASP cheat sheets, RFCs), and well-known engineering write-ups. Patterns like a join table for permissions are documented there.
 - Propose, don't decide. The user decides in the conversation that asked.
 - Stay on the question. No surveys of everything nearby.
 
@@ -41,6 +44,7 @@ A findings block, at most ~15 lines + sources:
 - recommendation: <option> because <...>; growth path: <...>
 - sources: <links>
 ```
+Several questions: still one block with one `###` heading (the question you were given); each sub-question is a `- <sub-question>:` bullet with its options and recommendation nested under it, then one `- fit together:` line.
 Idea check uses: verdict, competitors table, use-instead list, `proposed plan changes`.
 
 ## Where it goes

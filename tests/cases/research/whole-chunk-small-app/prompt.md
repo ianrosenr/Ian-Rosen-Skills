@@ -1,0 +1,1 @@
+Read {skill} and follow it exactly. Called by /irs:architecture: return the findings block only. Question: what are the tried-and-tested ways to build chunk 2 ("friends can sign in and see recipes I share with them"), covering its line items and `to figure out` list, at this app's size and growth?
