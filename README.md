@@ -23,7 +23,7 @@ Two files drive everything in the app repo:
 |---|---|
 | `/new-repo <name>` | Creates the repo (separate tool). |
 | `/irs:grill` | Light conversation about the idea. Writes plan.md: chunk 1 (the first walking skeleton) with every line item, later chunks with what still needs figuring out. |
-| `/irs:research` | Does this exist already? What services can we use instead of building? Gives a pursue verdict. |
+| `/irs:research [question]` | No question, after the first grill: does this exist already, what can we use instead of building, pursue verdict. With a question: the tried-and-tested ways to do it at this app's size and growth, with a recommendation and sources. |
 | `/irs:architecture` | Decides only what chunk 1 needs; edge cases get noted, not asked. Writes an ADR (Architecture Decision Record) per decision in `docs/adr/`. Refines the line items, ending the chunk with an architecture page item. |
 | `/irs:ready` | Checks the chunk for obvious gaps. On your yes, marks it ready and opens a plan PR (plan.md + ADRs). You merge it. |
 | `/irs:implementme` | Writes IMPLEMENTME.md for the next line item. You review it and ask for edits. |
@@ -33,9 +33,85 @@ Two files drive everything in the app repo:
 
 After a merge, `/irs:implementme` starts the next item. When a chunk is done, run its `needs` (`/irs:grill chunk N`, `/irs:research`, `/irs:architecture chunk N`), then `/irs:ready chunk N`. Each command ends by naming the next one, and every step works from a fresh session because state lives in files and GitHub.
 
+## Planning: from idea to a ready chunk
+Before any code, two conversations build `plan.md`. Nothing is committed until you approve a chunk.
+
+```
+/new-repo my-app                 empty repo: rules, checks, protection, plugin
+  │
+/irs:grill                       light, non-technical conversation, one question at a time
+  │   vision, users, hosting, features, what the first release must show, growth, non-goals
+  │   edge cases are noted (E-n), not asked
+  └─► plan.md: chunk 1 = first walking skeleton, every line item listed (one PR each)
+               later chunks = goal + "needs" + "to figure out"
+  │
+/irs:research                    idea check: competitors, services to use instead of building, pursue verdict
+  └─► plan.md ## Research; proposed plan changes applied only if you agree
+  │
+/irs:architecture                technical conversation, only what chunk 1 needs to start
+  │   layout, data, interfaces, dependencies, security, tests; simplest option first
+  │   security and data-loss questions always asked; everything else noted, not asked
+  │   opens with "research before we start?" (suggested topic from the chunk; yes / no / something else);
+  │   findings shape the options and get cited in the ADRs
+  └─► plan.md ## Decisions (D-n), docs/adr/NNNN-*.md per decision, AGENTS.md ## Layout,
+      line items split to one change each, last item = architecture page + diagram + video
+  │
+/irs:ready                       checks the chunk for obvious gaps (open questions, security,
+  │                              data loss, items that are more than one change, missing ADRs)
+  │   gaps → answer them (in chat or another /irs:architecture), re-run /irs:ready
+  └─► your yes → status: ready, plan PR (plan.md + ADRs) → you merge = chunk approved
+```
+- **Grill is the "what", architecture is the "how".** If you start talking technology in grill, it's parked for architecture; if an architecture answer would change what the app does, it sends you back to grill.
+- **You approve in chunks.** Only the next chunk gets detailed planning; later chunks stay as goals and questions until their turn: `/irs:grill chunk N` and/or `/irs:architecture chunk N` (whatever its `needs` says), then `/irs:ready chunk N`.
+- **Sessions are resumable.** Everything is written to plan.md as you go, so `/clear` between steps is fine.
+
+## Inside `/irs:shipit`
+One line item, one run, one PR. You stay in control at three points: approving IMPLEMENTME.md (typing `/irs:shipit` is the approval), reading the report, and merging the PR.
+
+```
+/irs:shipit
+  1. issue      gh issue create, body = IMPLEMENTME.md (re-run after /irs:retro: reuse the issue, reset the branch)
+  2. implement  implementer subagent: tests first, only the files IMPLEMENTME.md lists
+  3. review 1   reviewer subagent: whole diff, defects only, each with evidence
+       clean ───────────────────────────────────────────────┐
+       findings → 4. fix (implementer) → 5. review 2         │
+                    clean ──────────────────────────────────┤
+                    still findings / question → STOP        │
+                      report: what's done, what's open,     │
+                      suggested skill edits; no PR          │
+                      next: /irs:retro                      │
+  6. PR  ← ─────────────────────────────────────────────────┘
+     removes IMPLEMENTME.md, checks the line item off in plan.md,
+     body "Closes #<issue>"; report includes review 1's findings
+  you review on GitHub, then merge: issue closes, branch is deleted
+```
+- Never a third review round: if two rounds don't settle it, the process has a gap, and that's what `/irs:retro` is for.
+- Implementer or reviewer hits a decision IMPLEMENTME.md doesn't make: it stops and asks (an andon) instead of guessing.
+- Your PR comments: `/irs:shipit <PR#>` runs the same loop on them (fix, review, at most 2 rounds), replies on each thread and pushes. Questions get answers, not code. You resolve threads.
+- Every run's details are saved in `.git/shipit/T-<n>/` (never committed) for `/irs:retro`.
+
+## What to use when
+| Situation | Use |
+|---|---|
+| New app idea, no repo yet | `/new-repo <name>`, then `/irs:grill` in it |
+| Repo exists but has no plan.md | `/irs:grill` |
+| Idea talked through, not sure it's worth building | `/irs:research` |
+| "How do apps like mine usually do X?" | `/irs:research <question>`, say yes to architecture's opening research question, or say "research it" mid-conversation |
+| A chunk's line items need technical decisions | `/irs:architecture chunk N` |
+| One line item is big (new component, data or outside service) | `/irs:architecture T-n` |
+| Chunk looks done in plan.md, want to start building | `/irs:ready chunk N` |
+| Plan PR merged, or the last item's PR merged | `/irs:implementme` |
+| IMPLEMENTME.md looks wrong | Say what to change in the same session; it rewrites the file |
+| IMPLEMENTME.md looks right | `/irs:shipit` |
+| You left review comments on a PR | `/irs:shipit <PR#>` |
+| Report says "not clean after review 2", or a PR comment shows the reviewer should have caught something | `/irs:retro` |
+| After a `/irs:retro` PR merged | `/irs:shipit` (re-runs the same item) or `/irs:implementme T-n` first if IMPLEMENTME.md was the gap |
+| Chunk finished, next chunk says `needs: grill` | `/irs:grill chunk N` |
+| Not sure where you are | Run `/irs:implementme`: it checks for open PRs, ready chunks and what the next chunk needs, then tells you |
+
 Walking skeleton = production-quality code with bare-bones scope: the smallest end-to-end version that shows how the app looks and feels. Cut scope, never quality.
 
-Architecture page: every chunk's last line item updates `docs/architecture/`: a page (`index.html`, open it in a browser), a D2 diagram and a narrated video (Manim + Kokoro), all written for someone who has never written code: every acronym spelled out, analogies, step by step. Rules: `skills/architecture/page/instructions.md`. Rebuild: `docs/architecture/build.sh` (needs `brew install d2 cairo pango pkgconf espeak-ng` and uv).
+Architecture page: every chunk's last line item updates `docs/architecture/`: a page (`index.html`, open it in a browser), a D2 diagram and a narrated video (Manim + Kokoro), written for a junior software engineer: every acronym spelled out, one analogy family, and for each step how the hop works (transport, auth, payload, sync/async, failure, why). Rules: `skills/architecture/page/instructions.md`. Rebuild: `docs/architecture/build.sh` (needs `brew install d2 cairo pango pkgconf espeak-ng` and uv).
 
 Folder docs: `AGENTS.md` `## Layout` lists each top-level folder; each folder has a README.md (purpose, public interface, conventions). IMPLEMENTME.md points the implementer at only the folders it needs.
 
