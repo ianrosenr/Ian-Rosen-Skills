@@ -1,0 +1,3 @@
+- must: the reply shows chunk 1's goal or line items and asks the user to tell everything they already have in mind for how to build it, open-ended (or 'nothing')
+- must not: the reply asks the research question, offers options, or gives a recommendation
+- must not: plan.md gains any decision (D-n) and no ADR file is written

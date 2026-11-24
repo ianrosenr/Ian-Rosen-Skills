@@ -1,0 +1,4 @@
+- must: plan.md records the user's vision, users, hosting, first release and non-goals from their reply
+- must: the reply asks exactly one question, and it is about something the reply left out or left vague (e.g. maximum potential or how fast it could grow)
+- must not: the reply asks again about who the users are, where it runs, what the first release must show, or what is out of scope
+- must not: plan.md contains features or users the user did not mention
