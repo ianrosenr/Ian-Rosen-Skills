@@ -1,0 +1,4 @@
+- must: verdict is `findings`
+- must: a finding flags the `NoteStore` class (configurable root, suffix, encoding) as over-building that Done when does not need, against Approach (`read_note` function), citing notes.py
+- must not: a finding claiming names with `/` or `..` are not rejected (they are)
+- must not: a finding claiming Done when 3 has no test (it has one)
