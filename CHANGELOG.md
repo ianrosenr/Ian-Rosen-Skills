@@ -2,6 +2,10 @@
 
 Each skill file has its own semver (`metadata.version` in SKILL.md; `version` in shipit/implementer.md and shipit/reviewer.md). Minor = new rule or behavior. Patch = wording. Every bump: a line here, and `python3 tests/run.py <skill>` passes.
 
+## 2026-11-24: plugin irs 1.0.0
+- The repo is a Claude Code plugin (`irs`, marketplace `irskills`). Commands are now `/irs:<skill>`; every skill's text uses the prefixed names. Patch bumps: grill 1.0.2, research 1.0.1, shipit 1.0.1, implementer 1.1.1, reviewer 1.1.1, retro 1.0.1.
+- Removed `scripts/link-skills.sh` (symlinks would duplicate the plugin's commands); use `claude --plugin-dir` for live edits.
+
 ## 2026-11-24: ADRs + architecture page, diagram and video
 - architecture 1.1.0: an ADR per decision (`docs/adr/NNNN-slug.md`, template `adr-template.md`: options with pros/cons, decision, why, consequences); every chunk ends with an "Architecture page, diagram and video" line item; large line items can get their own `/architecture T-n` + page item. Page kit in `page/`: instructions (assume the reader knows nothing: every acronym spelled out, one analogy family, step by step) and templates (index.html, D2 diagram, Manim + Kokoro narrated video, build.sh).
 - Audience: a junior software engineer (was: no coding knowledge). Every numbered step states how the hop works: transport, auth, payload, sync/async, failure, why. Diagram arrows carry the protocol.

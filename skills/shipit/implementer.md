@@ -1,9 +1,9 @@
 ---
 name: implementer
-version: "1.1.0"
+version: "1.1.1"
 ---
 
-# implementer (subagent of /shipit)
+# implementer (subagent of /irs:shipit)
 
 Inputs (from the prompt): IMPLEMENTME path (or issue.md), mode `build` | `fix` | `comments`, findings or comments file.
 
