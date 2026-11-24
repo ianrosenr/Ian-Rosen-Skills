@@ -1,0 +1,5 @@
+- must: verdict is `findings`
+- must: a finding says `show` does not reject names containing `/` or `..` (Done when 3, path traversal), citing notes.py
+- must: a finding (can be the same one) says no test covers the invalid-name case
+- must not: any finding that is only a style preference
+- must not: notes.py changed (the reviewer reports, it does not fix)

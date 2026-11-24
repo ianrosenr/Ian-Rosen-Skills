@@ -1,4 +1,0 @@
-schema_version: "1.1"
-name: e05b-freewords
-context:
-  scaffold_script: fixture.sh

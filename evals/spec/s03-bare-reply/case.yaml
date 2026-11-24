@@ -1,4 +1,0 @@
-schema_version: "1.1"
-name: s03-bare-reply
-context:
-  scaffold_script: fixture.sh

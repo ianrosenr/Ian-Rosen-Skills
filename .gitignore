@@ -1,2 +1,2 @@
-.irskills/config.local
-evals/results/
+tests/results/
+__pycache__/
