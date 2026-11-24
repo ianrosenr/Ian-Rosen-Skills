@@ -28,6 +28,9 @@ Write for someone who has never written code. This rule beats brevity.
 7. Decisions: every ADR in `docs/adr/`, one line each, linked.
 8. What changed: newest chunk first, 1-3 lines per chunk.
 
+## Any screen
+The page adapts to the display: keep the template's CSS (width and text size scale with the screen, diagram and video fit the window height, click the diagram to zoom). Check it at desktop and phone width before done.
+
 ## Accuracy
 - Describe what exists in the code at the end of this chunk. Read the code; don't trust the plan alone.
 - Parts that are planned but not built: show them greyed out, labeled "coming in chunk N". Never describe them as working.
@@ -45,6 +48,7 @@ Write for someone who has never written code. This rule beats brevity.
 - Structure: what the app does -> build the diagram up one part at a time (each part appears as the narration explains it) -> walk the numbered steps with a moving dot or highlight -> recap in one sentence.
 - One idea per narration line. Each `self.say(...)` returns its length; give animations that run time so picture and voice stay in sync.
 - Shapes and labels only; no clip art. Text at least 24pt. Plain-name labels match the diagram.
+- Manim has no layout engine: it draws exactly where the script says. Use the template's `link()` (edge-to-edge arrows) and `fit()` (scale to frame) helpers. Before the full build, render the last frame (`manim -s -ql scenes.py Architecture` in `video/`) and look at it: nothing off-frame, no boxes touching, no arrow crossing a box or landing on a corner, every label readable. Fix and re-check before building.
 - Render: `docs/architecture/build.sh` (needs `brew install d2 cairo pango pkgconf espeak-ng` and uv; first run downloads the voice model).
 
 ## Done when (copy these into IMPLEMENTME.md)
@@ -54,3 +58,5 @@ Write for someone who has never written code. This rule beats brevity.
 - Given the code at the end of this chunk, then the page, diagram and video describe it accurately; planned parts are marked "coming in chunk N".
 - Given `docs/architecture/build.sh` runs, then `architecture.svg` and `architecture.mp4` are rebuilt without errors and the video has narration audio.
 - Given `open docs/architecture/index.html`, then the diagram shows and the video plays.
+- Given a phone-width and a large desktop window, then nothing overflows sideways and the diagram and video fit the window.
+- Given the video's frames, then nothing is off-frame, no boxes touch, and no arrow crosses a box.
