@@ -2,6 +2,10 @@
 
 Each skill file has its own semver (`metadata.version` in SKILL.md; `version` in shipit/implementer.md and shipit/reviewer.md). Minor = new rule or behavior. Patch = wording. Every bump: a line here, and `python3 tests/run.py <skill>` passes.
 
+## 2026-11-24: plugin irs 1.0.1, branch hygiene
+- implementme 1.2.1: before each item, `git fetch --prune` and delete local branches whose remote was deleted by a merge (never ones without an upstream).
+- shipit 1.0.2: PR body note that `Closes #I` closes the issue and the merge deletes the branch (repo auto-delete; new-repo sets it, ADR 0056).
+
 ## 2026-11-24: plugin irs 1.0.0
 - The repo is a Claude Code plugin (`irs`, marketplace `irskills`). Commands are now `/irs:<skill>`; every skill's text uses the prefixed names. Patch bumps: grill 1.0.2, research 1.0.1, shipit 1.0.1, implementer 1.1.1, reviewer 1.1.1, retro 1.0.1.
 - Removed `scripts/link-skills.sh` (symlinks would duplicate the plugin's commands); use `claude --plugin-dir` for live edits.
