@@ -21,7 +21,7 @@
 <written by /research>
 
 ## Decisions
-<written by /architecture>
+<written by /architecture; each decision also has an ADR in docs/adr/>
 - test_cmd: `<one command that runs all tests from repo root>`
 
 ## Chunks
@@ -33,6 +33,7 @@ Chunk status: draft -> ready (user, via /ready) -> done (last item merged).
 - goal: <what the user can see or do when this chunk is done>
 - needs: research, architecture
 - [ ] T-1: <one change>
+- [ ] T-2: Architecture page, diagram and video for chunk 1 (folders: docs/architecture/)
 
 ### Chunk 2: <name> | status: draft
 - goal: <...>

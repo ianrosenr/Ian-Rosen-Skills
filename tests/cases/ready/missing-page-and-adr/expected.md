@@ -1,0 +1,5 @@
+- must: the verdict blocks chunk 1 (it does not pass)
+- must: a blocker says the chunk's last line item is not the architecture page, diagram and video item
+- must: a blocker says D-2 has no ADR in docs/adr/
+- must not: plan.md's chunk 1 status changed to ready
+- must not: a blocker about naming or other details that are not obvious gaps

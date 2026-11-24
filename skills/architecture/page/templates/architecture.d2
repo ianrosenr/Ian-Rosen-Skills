@@ -1,0 +1,24 @@
+# EXAMPLE diagram: replace with this app's parts. Rules: page instructions, "Diagram (D2)".
+direction: right
+
+you: "You\nat the terminal" {
+  shape: person
+}
+
+machine: "Your computer" {
+  style.stroke-dash: 4
+
+  program: "The Notes program\nPython CLI" {
+    style.fill: "#dbeafe"
+  }
+  folder: "The notes folder\nplain text files" {
+    shape: cylinder
+  }
+  search: "Search\n(coming in chunk 2)" {
+    style.opacity: 0.35
+  }
+}
+
+you -> machine.program: "1. a command\n(notes show todo)"
+machine.program -> machine.folder: "2. read todo.md"
+machine.program -> you: "3. the note's text"
