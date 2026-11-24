@@ -2,6 +2,12 @@
 
 Each skill file has its own semver (`metadata.version` in SKILL.md; `version` in shipit/implementer.md and shipit/reviewer.md). Minor = new rule or behavior. Patch = wording. Every bump: a line here, and `python3 tests/run.py <skill>` passes.
 
+## 2026-11-24: lazy senior dev rules
+- implementme 1.1.0: rewritten around the smallest complete change: approach ladder (skip, reuse, stdlib, installed dep, one-liner, minimal code), find every caller first, fix root cause once in shared code, no unneeded abstractions, named shortcuts. Template gains `## Approach`. Reply ends with what was skipped + risks.
+- implementer 1.1.0: `shortcut:` comments for Approach shortcuts; moved code keeps error handling and validation.
+- reviewer 1.1.0: over-building (unneeded abstraction, option, duplicate code) is a finding; checks shortcut comments.
+- New cases: `implementme/root-fix-and-callers`, `shipit/reviewer-unneeded-wrapper`.
+
 ## 2026-11-24: plan-driven flow, all skills 1.0.0
 - Replaced everything with one flow: grill, research, architecture, ready, implementme, shipit (+ implementer, reviewer), retro.
 - Removed: explain, spec, the config dials, the multi-agent shipit workflow, ship docs, the old eval harness, the flag-complete plugin.

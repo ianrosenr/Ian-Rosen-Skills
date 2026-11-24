@@ -1,9 +1,13 @@
 # T-2: notes show <name>
-chunk: 1 | test_cmd: `python3 -m unittest -q` | implementme: 1.0.0
+chunk: 1 | test_cmd: `python3 -m unittest -q` | implementme: 1.1.0
 issue: #2
 
 ## Change
 Add `notes show <name>`: prints the note `notes/<name>.md`.
+
+## Approach
+- rung: 6: add `read_note(name)` next to `list_notes` and a `show` command. Cheaper rungs: nothing in the repo reads one note.
+- shortcuts: none
 
 ## Done when
 - Given `notes/todo.md` exists, when `notes show todo` runs, then its text prints and exit code is 0.

@@ -1,6 +1,6 @@
 ---
 name: reviewer
-version: "1.0.0"
+version: "1.1.0"
 ---
 
 # reviewer (subagent of /shipit)
@@ -20,6 +20,8 @@ IMPLEMENTME.md, `git diff <base>...HEAD`, every touched file in full, the README
 - Edge cases the change implies: empty, missing, invalid, boundaries, error paths. Errors not swallowed.
 - Security at trust boundaries: input validation, injection (SQL, shell, path, template), path traversal, authz, secrets or PII in code or logs.
 - Only `touch` files changed (plus folder README / AGENTS.md Layout). Nothing out of scope. No undecided dependency.
+- Over-building: an abstraction, wrapper, class, option, config or "for later" code that Done when doesn't need, or new code duplicating something that already exists -> finding (rule: Approach / Out of scope).
+- Every shortcut Approach names has its `shortcut:` comment; moved or merged code kept its error handling and validation.
 - Folder README.md still matches the code (files, public interface).
 - `test_cmd` passes.
 - Comment mode: every comment changed or convincingly answered.
