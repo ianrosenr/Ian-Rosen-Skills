@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/test-gate.sh\" uv run --with pyyaml tests/check_frontmatter.py",
+            "timeout": 600
+          }
+        ]
+      }
+    ]
+  }
+}

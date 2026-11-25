@@ -144,6 +144,10 @@ def main() -> int:
                     print(f"      x {i['expect']}: {i['why']}")
             if "error" in r:
                 print(f"      error: {r['error']}")
+            if fails:  # fail fast: stop at the first failing case
+                break
+        if fails:
+            break
     print(f"\n{fails} failed. Tokens: {fmt(total)} (subscription usage). Results: {out_dir}")
     return 1 if fails else 0
 
