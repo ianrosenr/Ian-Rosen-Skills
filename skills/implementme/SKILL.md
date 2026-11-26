@@ -2,7 +2,7 @@
 name: implementme
 description: 'Write IMPLEMENTME.md for the next unchecked line item of a ready chunk in plan.md: the smallest complete change, every file it must reach (callers included), code to reuse, tests. Reads only the parts of the repo the item needs. The user reviews it; /irs:shipit approves it. args: "[T-n]"'
 metadata:
-  version: "1.2.1"
+  version: "1.3.0"
 ---
 
 # implementme
@@ -47,6 +47,7 @@ Branch `t-<n>-<slug>` from main. Write repo-root `IMPLEMENTME.md` from `implemen
 - Exact: file paths, function names, test names. The implementer reads only this file and the files it lists.
 - Copy the text of every decision that applies; don't just cite ids.
 - Item creates a top-level folder -> include its `README.md` and the `AGENTS.md` Layout line in `touch`.
+- Line item lists `rules: ADR NNNN R-n` -> that ADR under `read`; a Done-when item per listed rule (a test that fails if the code breaks it) and per fixed bug path in its `## Statechart` this item can take (replayed as a test, one step per action).
 - Architecture page item -> under `read`: `../architecture/page/instructions.md` from this skill's directory (absolute path), the ADRs, and the code of every part it describes. Copy that file's "Done when" list into Done when. `docs/architecture/` missing -> `touch` gets every file in `../architecture/page/templates/` as new. test_cmd for this item: `docs/architecture/build.sh`.
 - Fits one screen (about 60 lines). Longer -> the item is too big: propose a split.
 - Behavior nobody decided -> don't guess: put it under Questions. /irs:shipit won't run until Questions says none.

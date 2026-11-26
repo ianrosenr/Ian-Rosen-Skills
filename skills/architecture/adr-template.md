@@ -27,3 +27,14 @@
 - <what this commits us to; what gets easier; what gets harder>
 - door: <one-way | two-way>: <what reversing it would cost>
 - growth path: <what changes, and roughly when, if Growth needs more than this>
+
+<!-- Only when /irs:architecture modeled this flow with statechart: -->
+## Rules
+- R-1: <rule in the user's words> | invariant: <TLA+ name>
+
+## Statechart
+- chart: <NNNN>-statechart/chart.mmd
+- re-run: <command, new --out folder>
+- fixed bug paths: <R-n: 1. step 2. step ...>
+- model leaves out: <...>
+- chart hides: <steps>

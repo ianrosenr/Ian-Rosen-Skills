@@ -2,6 +2,11 @@
 
 Each skill file has its own semver (`metadata.version` in SKILL.md; `version` in shipit/implementer.md and shipit/reviewer.md). Minor = new rule or behavior. Patch = wording. Every bump: a line here, and `python3 tests/run.py <skill>` passes.
 
+## 2026-11-26: plugin irs 1.2.0, statechart for stateful flows
+- architecture 1.4.0: a scope with a stateful flow gets modeled with pstack's statechart skill (TLA+ + Mermaid). User agrees each rule (invariant); each bug path -> change design or accept. Files in `docs/adr/<NNNN>-statechart/`; ADR gets `## Rules` + `## Statechart`; flow's line items end with `(rules: ADR NNNN R-n)`. Pulls the latest pstack into `~/.cache/irs/pstack` each run (clone if missing); offline with no copy -> E-n, go on.
+- implementme 1.3.0: line item lists `rules:` -> ADR under `read`; Done-when item per rule and per fixed bug path the item can take. Untagged items unchanged.
+- reviewer 1.2.0: line item lists `rules:` -> each rule has a failing-without-code test and each fixed bug path is replayed as a test.
+
 ## 2026-11-26: plugin irs 1.1.1, model per role
 - grill 1.2.1, architecture 1.3.1: `model: opus`.
 - shipit 1.0.3: implementer `model: sonnet`, reviewer `model: opus`.

@@ -3,7 +3,7 @@ name: architecture
 description: 'Decide only what the next chunk of plan.md (or one large line item) needs to be built, note everything else without asking, refine the line items, write an ADR for every decision, and end the chunk with an architecture page + diagram + video line item. Use after /irs:grill and /irs:research, before /irs:ready. args: "[chunk N | T-n]"'
 model: opus
 metadata:
-  version: "1.3.1"
+  version: "1.4.0"
 ---
 
 # architecture
@@ -45,6 +45,16 @@ Ask: "Research before we start? Suggested: <the tried-and-tested ways to build t
 - Security: trust boundaries, where secrets live, auth.
 - Testing: `test_cmd`, what is faked.
 - Running: how it runs and deploys (chunk 1: minimal).
+- States: a flow that moves between states (login/session, payment, sync, retries, jobs, multi-step forms) -> `## Statechart` once its decisions are made.
+
+## Statechart (only for a scope with a stateful flow)
+- Get the latest skill: `P=~/.cache/irs/pstack; git -C $P pull -q || git clone -q --depth 1 https://github.com/backnotprop/pstack $P`. Fails (offline) and no `$P` -> tell the user, add `E-n: model <flow> with statechart`, go on.
+- Read `$P/skills/statechart/SKILL.md` and follow it (`<skill dir>` = `$P/skills/statechart`); the user is the reader.
+- Rules: propose each as one sentence in the user's words ("a card is never charged twice"). The user agrees -> it is an INVARIANT. Never weaken one to make it hold.
+- Show the chart and each bug path. Each bug -> one question: change the design (new or updated D-n) or accept it (D-n with why). Re-run until every rule holds or is accepted.
+- Keep: copy the spec, cfg, view and `chart.mmd` to `docs/adr/<NNNN>-statechart/` (NNNN = the flow's ADR).
+- ADR: add `## Rules` (`R-n: <sentence> | invariant: <name>`) and `## Statechart` (chart link, re-run command, each fixed bug path as numbered steps, what the model leaves out, steps the chart hides).
+- Each line item that builds the flow ends with `(rules: ADR NNNN R-1, R-2)`.
 
 ## Write
 - Decisions -> plan.md. Set `test_cmd` once decided.
