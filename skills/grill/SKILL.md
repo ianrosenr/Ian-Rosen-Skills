@@ -1,8 +1,9 @@
 ---
 name: grill
 description: 'Starts with the user''s brain dump, then a light conversation about the gaps (vision, users, hosting, features, growth), then writes plan.md as chunks of small line items, each one PR. Use first in a new repo, for a later chunk marked `needs: grill`, or to add a new feature. args: "[chunk N | <feature>]"'
+model: opus
 metadata:
-  version: "1.2.0"
+  version: "1.2.1"
 ---
 
 # grill
