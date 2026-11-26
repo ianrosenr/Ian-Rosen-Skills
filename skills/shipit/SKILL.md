@@ -2,12 +2,12 @@
 name: shipit
 description: "`/irs:shipit` approves and builds IMPLEMENTME.md: issue, implementer, reviewer, at most 2 review rounds, PR, report. `/irs:shipit <PR#>` addresses the user's review comments on that PR with the same loop. Never merges. args: \"[PR#]\""
 metadata:
-  version: "1.0.2"
+  version: "1.0.3"
 ---
 
 # shipit
 
-You orchestrate. Implementer and reviewer are fresh subagents (Agent tool, general-purpose). Prompt each: "Read `<this skill's dir>/implementer.md` (or `reviewer.md`) and follow it exactly. Inputs: <paths, mode, round>." Pass file paths, never pasted content. Never merge. Never push to main.
+You orchestrate. Implementer and reviewer are fresh subagents (Agent tool, general-purpose): implementer `model: sonnet`, reviewer `model: opus`. Prompt each: "Read `<this skill's dir>/implementer.md` (or `reviewer.md`) and follow it exactly. Inputs: <paths, mode, round>." Pass file paths, never pasted content. Never merge. Never push to main.
 
 Run dir: `R = $(git rev-parse --git-dir)/shipit/T-<n>` (inside .git, never committed). Save every subagent's JSON there (`impl-1.json`, `review-1.json`, ...) plus `report.md`. /irs:retro reads it.
 

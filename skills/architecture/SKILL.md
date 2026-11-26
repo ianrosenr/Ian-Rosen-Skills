@@ -1,8 +1,9 @@
 ---
 name: architecture
 description: 'Decide only what the next chunk of plan.md (or one large line item) needs to be built, note everything else without asking, refine the line items, write an ADR for every decision, and end the chunk with an architecture page + diagram + video line item. Use after /irs:grill and /irs:research, before /irs:ready. args: "[chunk N | T-n]"'
+model: opus
 metadata:
-  version: "1.3.0"
+  version: "1.3.1"
 ---
 
 # architecture

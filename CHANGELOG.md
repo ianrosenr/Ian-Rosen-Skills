@@ -2,6 +2,10 @@
 
 Each skill file has its own semver (`metadata.version` in SKILL.md; `version` in shipit/implementer.md and shipit/reviewer.md). Minor = new rule or behavior. Patch = wording. Every bump: a line here, and `python3 tests/run.py <skill>` passes.
 
+## 2026-11-26: plugin irs 1.1.1, model per role
+- grill 1.2.1, architecture 1.3.1: `model: opus`.
+- shipit 1.0.3: implementer `model: sonnet`, reviewer `model: opus`.
+
 ## 2026-11-24: plugin irs 1.1.0, brain dump first
 - grill 1.2.0: every session (new idea, chunk N, new feature) opens with one open ask for the user's brain dump and waits; written to plan.md in their words; questions then cover only gaps, vague parts or contradictions, built on what they said. New `<feature>` arg (or no arg with nothing needing grill) adds a new chunk.
 - architecture 1.3.0: first message asks what the user already has in mind for the build (tech wanted/avoided, constraints, worries); research suggestion and options shaped by it; firm choices confirmed and recorded as D-n + ADR, not re-asked.
