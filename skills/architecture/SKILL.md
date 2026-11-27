@@ -45,16 +45,7 @@ Ask: "Research before we start? Suggested: <the tried-and-tested ways to build t
 - Security: trust boundaries, where secrets live, auth.
 - Testing: `test_cmd`, what is faked.
 - Running: how it runs and deploys (chunk 1: minimal).
-- States: a flow that moves between states (login/session, payment, sync, retries, jobs, multi-step forms) -> `## Statechart` once its decisions are made.
-
-## Statechart (only for a scope with a stateful flow)
-- Install or update to latest: `gh skill install backnotprop/pstack skills/statechart --agent claude-code --scope user --force`. Fails (offline) and no `~/.claude/skills/statechart/` -> tell the user, add `E-n: model <flow> with statechart`, go on.
-- Read `~/.claude/skills/statechart/SKILL.md` and follow it (`<skill dir>` = `~/.claude/skills/statechart`); the user is the reader.
-- Rules: propose each as one sentence in the user's words ("a card is never charged twice"). The user agrees -> it is an INVARIANT. Never weaken one to make it hold.
-- Show the chart and each bug path. Each bug -> one question: change the design (new or updated D-n) or accept it (D-n with why). Re-run until every rule holds or is accepted.
-- Keep: copy the spec, cfg, view and `chart.mmd` to `docs/adr/<NNNN>-statechart/` (NNNN = the flow's ADR).
-- ADR: add `## Rules` (`R-n: <sentence> | invariant: <name>`) and `## Statechart` (chart link, re-run command, each fixed bug path as numbered steps, what the model leaves out, steps the chart hides).
-- Each line item that builds the flow ends with `(rules: ADR NNNN R-1, R-2)`.
+- States: a flow that moves between states (session, payment, sync, retries, jobs, multi-step forms) -> once its decisions are made, follow `~/.claude/skills/statechart/SKILL.md` with the user as the reader (missing -> tell the user: `gh skill install backnotprop/pstack skills/statechart --agent claude-code --scope user`). Each bug path -> ask: change the design or accept it (D-n). Agreed rules go in the flow's ADR as `R-n: <rule>`; the flow's line items end with `(rules: ADR NNNN R-n)`.
 
 ## Write
 - Decisions -> plan.md. Set `test_cmd` once decided.
