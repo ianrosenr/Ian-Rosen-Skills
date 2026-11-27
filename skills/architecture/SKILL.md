@@ -3,7 +3,7 @@ name: architecture
 description: 'Decide only what the next chunk of plan.md (or one large line item) needs to be built, note everything else without asking, refine the line items, write an ADR for every decision, and end the chunk with an architecture page + diagram + video line item. Use after /irs:grill and /irs:research, before /irs:ready. args: "[chunk N | T-n]"'
 model: opus
 metadata:
-  version: "1.3.1"
+  version: "1.4.0"
 ---
 
 # architecture
@@ -45,6 +45,7 @@ Ask: "Research before we start? Suggested: <the tried-and-tested ways to build t
 - Security: trust boundaries, where secrets live, auth.
 - Testing: `test_cmd`, what is faked.
 - Running: how it runs and deploys (chunk 1: minimal).
+- States: a flow that moves between states (session, payment, sync, retries, jobs, multi-step forms) -> once its decisions are made, follow the repo's `.claude/skills/statechart/SKILL.md` (pstack's, added by /new-repo) with the user as the reader (missing -> tell the user to run `gh skill install backnotprop/pstack skills/statechart --dir .claude/skills` and commit it). Each bug path -> ask: change the design or accept it (D-n). Agreed rules go in the flow's ADR as `R-n: <rule>`; the flow's line items end with `(rules: ADR NNNN R-n)`.
 
 ## Write
 - Decisions -> plan.md. Set `test_cmd` once decided.
