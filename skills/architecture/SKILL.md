@@ -48,8 +48,8 @@ Ask: "Research before we start? Suggested: <the tried-and-tested ways to build t
 - States: a flow that moves between states (login/session, payment, sync, retries, jobs, multi-step forms) -> `## Statechart` once its decisions are made.
 
 ## Statechart (only for a scope with a stateful flow)
-- Get the latest skill: `P=~/.cache/irs/pstack; git -C $P pull -q || git clone -q --depth 1 https://github.com/backnotprop/pstack $P`. Fails (offline) and no `$P` -> tell the user, add `E-n: model <flow> with statechart`, go on.
-- Read `$P/skills/statechart/SKILL.md` and follow it (`<skill dir>` = `$P/skills/statechart`); the user is the reader.
+- Install or update to latest: `gh skill install backnotprop/pstack skills/statechart --agent claude-code --scope user --force`. Fails (offline) and no `~/.claude/skills/statechart/` -> tell the user, add `E-n: model <flow> with statechart`, go on.
+- Read `~/.claude/skills/statechart/SKILL.md` and follow it (`<skill dir>` = `~/.claude/skills/statechart`); the user is the reader.
 - Rules: propose each as one sentence in the user's words ("a card is never charged twice"). The user agrees -> it is an INVARIANT. Never weaken one to make it hold.
 - Show the chart and each bug path. Each bug -> one question: change the design (new or updated D-n) or accept it (D-n with why). Re-run until every rule holds or is accepted.
 - Keep: copy the spec, cfg, view and `chart.mmd` to `docs/adr/<NNNN>-statechart/` (NNNN = the flow's ADR).
